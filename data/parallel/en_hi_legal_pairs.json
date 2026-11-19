@@ -1,0 +1,206 @@
+[
+  {
+    "id": "LEG-SC-001",
+    "domain": "criminal_judgment",
+    "source": "Supreme Court of India",
+    "en_text": "The Petitioner has approached this Court under Section 482 of the Code of Criminal Procedure, 1973 praying for quashing of First Information Report No. 204 of 2021 registered at Police Station Civil Lines, Prayagraj.",
+    "hi_text": "याचिकाकर्ता ने दंड प्रक्रिया संहिता, 1973 की धारा 482 के अधीन इस न्यायालय का दरवाजा खटखटाया है और पुलिस स्टेशन सिविल लाइंस, प्रयागराज में दर्ज प्रथम सूचना रिपोर्ट संख्या 204 वर्ष 2021 को अपास्त करने की प्रार्थना की है।",
+    "entities": {
+      "parties": ["Petitioner"],
+      "courts": ["Court"],
+      "statutes": ["Code of Criminal Procedure, 1973"],
+      "sections": ["Section 482"],
+      "citations": ["First Information Report No. 204 of 2021"],
+      "dates": ["2021"],
+      "amounts": [],
+      "modals": []
+    }
+  },
+  {
+    "id": "LEG-SC-002",
+    "domain": "criminal_judgment",
+    "source": "Supreme Court of India",
+    "en_text": "The High Court committed a manifest error of law in refusing to exercise its inherent powers under Section 482 of the Code when the allegations in the complaint do not prima facie disclose the commission of any cognizable offence.",
+    "hi_text": "उच्च न्यायालय ने संहिता की धारा 482 के तहत अपनी अंतर्निहित शक्तियों का प्रयोग करने से इनकार करके कानून की स्पष्ट त्रुटि की है, जबकि शिकायत में लगाए गए आरोप प्रथम दृष्टया किसी संज्ञेय अपराध का घटित होना प्रकट नहीं करते हैं।",
+    "entities": {
+      "parties": ["High Court"],
+      "courts": ["High Court"],
+      "statutes": ["Code"],
+      "sections": ["Section 482"],
+      "citations": [],
+      "dates": [],
+      "amounts": [],
+      "modals": []
+    }
+  },
+  {
+    "id": "LEG-SC-003",
+    "domain": "commercial_negotiable",
+    "source": "Supreme Court of India",
+    "en_text": "In a prosecution under Section 138 of the Negotiable Instruments Act, 1881, once the signature on the cheque is admitted by the Accused, the statutory presumption under Section 139 of the Act arises in favour of the Complainant.",
+    "hi_text": "पराक्रम्य लिखित अधिनियम, 1881 की धारा 138 के अधीन अभियोजन में, एक बार जब अभियुक्त द्वारा चेक पर हस्ताक्षर स्वीकार कर लिए जाते हैं, तो अधिनियम की धारा 139 के अधीन वैधानिक उपधारणा शिकायतकर्ता के पक्ष में उत्पन्न होती है।",
+    "entities": {
+      "parties": ["Accused", "Complainant"],
+      "courts": [],
+      "statutes": ["Negotiable Instruments Act, 1881", "Act"],
+      "sections": ["Section 138", "Section 139"],
+      "citations": [],
+      "dates": ["1881"],
+      "amounts": [],
+      "modals": []
+    }
+  },
+  {
+    "id": "LEG-SC-004",
+    "domain": "arbitration",
+    "source": "Supreme Court of India",
+    "en_text": "The scope of interference by a Court under Section 34 of the Arbitration and Conciliation Act, 1996 is extremely limited and an arbitral award cannot be set aside merely on the ground that an alternative view was possible on evidence.",
+    "hi_text": "मध्यस्थता एवं सुलह अधिनियम, 1996 की धारा 34 के तहत न्यायालय द्वारा हस्तक्षेप का दायरा अत्यधिक सीमित है और किसी मध्यस्थता पंचाट को केवल इस आधार पर रद्द नहीं किया जा सकता कि साक्ष्यों पर एक वैकल्पिक दृष्टिकोण संभव था।",
+    "entities": {
+      "parties": [],
+      "courts": ["Court"],
+      "statutes": ["Arbitration and Conciliation Act, 1996"],
+      "sections": ["Section 34"],
+      "citations": [],
+      "dates": ["1996"],
+      "amounts": [],
+      "modals": ["cannot"]
+    }
+  },
+  {
+    "id": "LEG-CONT-001",
+    "domain": "commercial_contract",
+    "source": "Commercial Agreement",
+    "en_text": "The Contractor shall indemnify, defend, and hold harmless the Company, its directors, officers, and employees against any and all claims, liabilities, losses, damages, and expenses arising out of a breach of this Agreement.",
+    "hi_text": "ठेकेदार इस करार के उल्लंघन से उत्पन्न होने वाले किसी भी और सभी दावों, दायित्वों, हानियों, क्षतियों और खर्चों के विरुद्ध कंपनी, उसके निदेशकों, अधिकारियों और कर्मचारियों की क्षतिपूर्ति करेगा, उनका बचाव करेगा और उन्हें हानिरहित रखेगा।",
+    "entities": {
+      "parties": ["Contractor", "Company"],
+      "courts": [],
+      "statutes": [],
+      "sections": [],
+      "citations": [],
+      "dates": [],
+      "amounts": [],
+      "modals": ["shall"]
+    }
+  },
+  {
+    "id": "LEG-CONT-002",
+    "domain": "commercial_contract",
+    "source": "Commercial Agreement",
+    "en_text": "In no event shall the total liability of either Party under or in connection with this Agreement exceed INR 25,00,000/- (Indian Rupees Twenty Five Lakhs only) or the total fees paid by the Client in the preceding twelve (12) months.",
+    "hi_text": "किसी भी स्थिति में इस करार के तहत या उसके संबंध में किसी भी पक्षकार का कुल दायित्व ₹25,00,000/- (केवल पच्चीस लाख भारतीय रुपये) या पूर्ववर्ती बारह (12) महीनों में ग्राहक द्वारा भुगतान किए गए कुल शुल्क से अधिक नहीं होगा।",
+    "entities": {
+      "parties": ["Party", "Client"],
+      "courts": [],
+      "statutes": [],
+      "sections": [],
+      "citations": [],
+      "dates": ["twelve (12) months"],
+      "amounts": ["INR 25,00,000/-", "Twenty Five Lakhs"],
+      "modals": ["shall", "shall not exceed"]
+    }
+  },
+  {
+    "id": "LEG-CONT-003",
+    "domain": "commercial_contract",
+    "source": "Commercial Agreement",
+    "en_text": "Either party may terminate this Agreement forthwith by giving written notice of thirty (30) days to the other party in the event of a material breach which remains uncured after expiration of the notice period.",
+    "hi_text": "कोई भी पक्षकार उस तात्विक उल्लंघन की स्थिति में, जो नोटिस अवधि की समाप्ति के बाद भी ठीक नहीं होता है, दूसरे पक्षकार को तीस (30) दिनों की लिखित सूचना देकर इस करार को तत्काल समाप्त कर सकता है।",
+    "entities": {
+      "parties": ["party"],
+      "courts": [],
+      "statutes": [],
+      "sections": [],
+      "citations": [],
+      "dates": ["thirty (30) days"],
+      "amounts": [],
+      "modals": ["may"]
+    }
+  },
+  {
+    "id": "LEG-BAIL-001",
+    "domain": "bail_order",
+    "source": "High Court of Judicature",
+    "en_text": "The Applicant is directed to be released on bail upon furnishing a personal bond in the sum of Rs. 50,000/- (Rupees Fifty Thousand) with two solvent sureties of the like amount to the satisfaction of the Learned Trial Court.",
+    "hi_text": "आवेदक को विद्वान विचारण न्यायालय की संतुष्टि के अनुरूप इतनी ही राशि के दो शोधनक्षम प्रतिभुओं के साथ ₹50,000/- (पचास हजार रुपये) की राशि का व्यक्तिगत बंधपत्र प्रस्तुत करने पर जमानत पर रिहा करने का निर्देश दिया जाता है।",
+    "entities": {
+      "parties": ["Applicant"],
+      "courts": ["Learned Trial Court"],
+      "statutes": [],
+      "sections": [],
+      "citations": [],
+      "dates": [],
+      "amounts": ["Rs. 50,000/-", "Rupees Fifty Thousand", "two"],
+      "modals": ["directed to be"]
+    }
+  },
+  {
+    "id": "LEG-BAIL-002",
+    "domain": "bail_order",
+    "source": "High Court of Judicature",
+    "en_text": "The Applicant shall not tamper with the evidence or influence the witnesses, and shall report to the Investigating Officer on the first Monday of every month between 10:00 AM and 01:00 PM until the submission of the chargesheet.",
+    "hi_text": "आवेदक साक्ष्यों के साथ छेड़छाड़ नहीं करेगा और न ही गवाहों को प्रभावित करेगा, तथा आरोप पत्र दाखिल होने तक प्रत्येक माह के प्रथम सोमवार को पूर्वाह्न 10:00 बजे से दोपहर 01:00 बजे के मध्य जांच अधिकारी के समक्ष उपस्थित होगा।",
+    "entities": {
+      "parties": ["Applicant", "Investigating Officer"],
+      "courts": [],
+      "statutes": [],
+      "sections": [],
+      "citations": ["chargesheet"],
+      "dates": ["first Monday of every month", "10:00 AM and 01:00 PM"],
+      "amounts": [],
+      "modals": ["shall not", "shall"]
+    }
+  },
+  {
+    "id": "LEG-STAT-001",
+    "domain": "statute",
+    "source": "Constitution of India",
+    "en_text": "No person shall be deprived of his life or personal liberty except according to procedure established by law as guaranteed under Article 21 of the Constitution of India.",
+    "hi_text": "भारत के संविधान के अनुच्छेद 21 के तहत प्रत्याभूत विधि द्वारा स्थापित प्रक्रिया के अनुसार ही किसी व्यक्ति को उसके प्राण या दैहिक स्वतंत्रता से वंचित किया जाएगा, अन्यथा नहीं।",
+    "entities": {
+      "parties": ["person"],
+      "courts": [],
+      "statutes": ["Constitution of India"],
+      "sections": ["Article 21"],
+      "citations": [],
+      "dates": [],
+      "amounts": [],
+      "modals": ["shall be deprived", "except according to"]
+    }
+  },
+  {
+    "id": "LEG-STAT-002",
+    "domain": "statute",
+    "source": "Indian Contract Act",
+    "en_text": "An agreement enforceable by law is a contract, and an agreement not enforceable by law is said to be void ab initio under Section 2 of the Indian Contract Act, 1872.",
+    "hi_text": "विधि द्वारा प्रवर्तनीय करार एक संविदा है, और विधि द्वारा अप्रवर्तनीय करार भारतीय संविदा अधिनियम, 1872 की धारा 2 के तहत प्रारंभ से ही शून्य कहा जाता है।",
+    "entities": {
+      "parties": [],
+      "courts": [],
+      "statutes": ["Indian Contract Act, 1872"],
+      "sections": ["Section 2"],
+      "citations": [],
+      "dates": ["1872"],
+      "amounts": [],
+      "modals": ["is said to be"]
+    }
+  },
+  {
+    "id": "LEG-JUDG-005",
+    "domain": "civil_judgment",
+    "source": "High Court of Delhi",
+    "en_text": "The Defendant is hereby restrained by an interim injunction from infringing the registered trademark of the Plaintiff and from passing off its goods as those of the Plaintiff until the final disposal of Civil Suit No. 582 of 2022.",
+    "hi_text": "प्रतिवादी को सिविल वाद संख्या 582 वर्ष 2022 के अंतिम निस्तारण तक वादी के पंजीकृत ट्रेडमार्क का उल्लंघन करने और अपने माल को वादी के माल के रूप में प्रदर्शित करने (पासिंग ऑफ) से एतद्द्वारा अंतरिम व्यादेश द्वारा रोका जाता है।",
+    "entities": {
+      "parties": ["Defendant", "Plaintiff"],
+      "courts": ["High Court of Delhi"],
+      "statutes": [],
+      "sections": [],
+      "citations": ["Civil Suit No. 582 of 2022"],
+      "dates": ["2022"],
+      "amounts": [],
+      "modals": ["hereby restrained"]
+    }
+  }
+]

@@ -1,0 +1,40 @@
+MASTER SERVICES AGREEMENT
+
+This Master Services Agreement ("Agreement") is made and entered into on this 15th day of November, 2023, by and between:
+
+ALPHA LEGAL TECH PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Nariman Point, Mumbai - 400021 (hereinafter referred to as the "Service Provider", which expression shall include its successors and permitted assigns);
+
+AND
+
+BHARAT COMMERCIAL ENTERPRISES LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Connaught Place, New Delhi - 110001 (hereinafter referred to as the "Client", which expression shall include its successors and permitted assigns).
+
+WHEREAS:
+A. The Service Provider is engaged in the business of providing enterprise software and legal analytics solutions.
+B. The Client desires to retain the Service Provider, and the Service Provider agrees to render such services on the terms and conditions set forth herein.
+
+NOW, THEREFORE, the Parties agree as follows:
+
+1. DEFINITIONS AND INTERPRETATION
+1.1 "Applicable Law" shall mean any statute, law, regulation, ordinance, rule, judgment, order, decree, or directive having the force of law in the Republic of India.
+1.2 "Confidential Information" shall mean all proprietary information disclosed by one Party to the other Party, whether orally or in writing.
+
+2. OBLIGATIONS OF THE SERVICE PROVIDER
+2.1 The Service Provider shall perform the Services with reasonable skill, care, and diligence in accordance with the specifications set forth in Schedule A.
+2.2 The Service Provider shall not assign or sub-contract any of its obligations without the prior written consent of the Client.
+
+3. FEES AND PAYMENT TERMS
+3.1 The Client shall pay the Service Provider a total consideration of INR 15,00,000/- (Indian Rupees Fifteen Lakhs only) plus applicable Goods and Services Tax (GST) within thirty (30) days from the date of receipt of an undisputed invoice.
+3.2 Any delayed payment shall attract interest at the rate of 9% per annum from the due date until the date of actual payment.
+
+4. INDEMNIFICATION AND LIABILITY
+4.1 The Service Provider shall indemnify, defend, and hold harmless the Client, its directors, officers, and employees against any third-party claims, liabilities, losses, damages, and expenses arising directly out of any willful misconduct or breach of confidentiality by the Service Provider.
+4.2 In no event shall the total aggregate liability of either Party under this Agreement exceed INR 30,00,000/- (Indian Rupees Thirty Lakhs only).
+
+5. TERMINATION
+5.1 Either Party may terminate this Agreement forthwith by giving written notice of thirty (30) days in the event of a material breach by the other Party which remains uncured for fifteen (15) days after receipt of notice.
+5.2 Upon termination, the Client shall forthwith pay all outstanding fees accrued up to the effective date of termination.
+
+6. GOVERNING LAW AND DISPUTE RESOLUTION
+6.1 This Agreement shall be governed by and construed in accordance with the laws of India.
+6.2 Any dispute arising out of or in connection with this Agreement shall be referred to arbitration in accordance with the Arbitration and Conciliation Act, 1996. The seat and venue of arbitration shall be New Delhi, and the proceedings shall be conducted in the English language before a Sole Arbitrator.
+6.3 The Courts at New Delhi shall have exclusive jurisdiction over all matters arising hereunder.
