@@ -1,0 +1,812 @@
+====================================
+MILPaC_ A Novel Benchmark for Evaluating Translation of Legal Text to Indian Languages (1).pdf
+--- PAGE 1 ---
+MILPaC: A Novel Benchmark for Evaluating Translation of
+Legal Text to Indian Languages
+SAYAN MAHAPATRA∗, Department of Computer Science and Engineering, Indian Institute of Technology
+Kharagpur, Kharagpur, India
+DEBTANU DATTA∗, Department of Mathematics, Indian Institute of Technology Kharagpur, Kharagpur,
+India
+SHUBHAM SONI, Department of Computer Science and Engineering, Indian Institute of Technology
+Kharagpur, Kharagpur, India
+ADRIJIT GOSW AMI, Department of Mathematics, Indian Institute of Technology Kharagpur, Kharagpur,
+India
+SAPTARSHI GHOSH, Department of Computer Science and Engineering, Indian Institute of Technology
+Kharagpur, Kharagpur, India
+Most legal text in the Indian judiciary is written in complex English due to historical reasons. However, only a
+small fraction of the Indian population is comfortable in reading English. Hence legal text needs to be made
+available in various Indian languages, possibly by translating the available legal text from English. Though
+there has been a lot of research on translation to and between Indian languages, to our knowledge, there
+has not been much prior work on such translation in the legal domain. In this work, we construct the first
+high-quality legal parallel corpus containing aligned text units in English and nine Indian languages, that
+includes several low-resource languages. We also benchmark the performance of a wide variety of Machine
+Translation (MT) systems over this corpus, including commercial MT systems, open-source MT systems, and
+Large Language Models. Through a comprehensive survey by Law practitioners, we check how satisfied they
+are with the translations by some of these MT systems, and how well automatic MT evaluation metrics agree
+with the opinions of Law practitioners.
+CCS Concepts: •Computing methodologies → Language resources; Machine translation;
+Additional Key Words and Phrases: Parallel corpus, machine translation, legal nlp, multilingual nlp, indian
+legal corpus
+Sayan Mahapatra and Debtanu Datta have contributed equally.
+Debtanu Datta is supported by the Prime Minister’s Research Fellowship (PMRF) from the Government of India. The work is
+partially supported by the Technology Innovation Hub (TIH) on AI for Interdisciplinary Cyber-Physical Systems (AI4ICPS)
+set up by IIT Kharagpur under the aegis of DST, Government of India (GoI).
+Authors’ Contact Information: Sayan Mahapatra, Department of Computer Science and Engineering, Indian Institute
+of Technology Kharagpur, Kharagpur, West Bengal, India; e-mail: sayan.mahapatra.iitkgp@gmail.com; Debtanu Datta
+(corresponding author), Department of Mathematics, Indian Institute of Technology Kharagpur, Kharagpur, West Ben-
+gal, India; e-mail: debtanudatta04@gmail.com; Shubham Soni, Department of Computer Science and Engineering, In-
+dian Institute of Technology Kharagpur, Kharagpur, West Bengal, India; e-mail: shubhamsonikgp@gmail.com; Adrijit
+Goswami, Department of Mathematics, Indian Institute of Technology Kharagpur, Kharagpur, West Bengal, India; e-mail:
+goswami@maths.iitkgp.ac.in; Saptarshi Ghosh, Department of Computer Science and Engineering, Indian Institute of
+Technology Kharagpur, Kharagpur, West Bengal, India; e-mail: saptarshi@cse.iitkgp.ac.in.
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International License.
+© 2025 Copyright held by the owner/author(s).
+ACM 2375-4699/2025/08-ART80
+https://doi.org/10.1145/3748313
+ACM Trans. Asian Low-Resour. Lang. Inf. Process., Vol. 24, No. 8, Article 80. Publication date: August 2025.
+--- PAGE 2 ---
+80:2 S. Mahapatra et al.
+ACM Reference Format:
+Sayan Mahapatra, Debtanu Datta, Shubham Soni, Adrijit Goswami, and Saptarshi Ghosh. 2025. MILPaC: A
+Novel Benchmark for Evaluating Translation of Legal Text to Indian Languages.ACM Trans. Asian Low-Resour.
+Lang. Inf. Process.24, 8, Article 80 (August 2025), 30 pages.https://doi.org/10.1145/3748313
+1 Introduction
+Most legal text in the Indian judiciary is written in English due to historical reasons, and legal
+English is particularly complex. However, only about 10% of the general Indian population is
+comfortable in reading English.1 Additionally, since different states in India have different local
+languages, a person residing in a non-native state may need to understand legal text written in
+a language with which the person is not familiar. For these reasons, when the common Indian
+confronts a legal situation, this language barrier is a frequent problem. Thus, it is important that
+legal text be made available in various Indian languages, to improve access to justice for a very
+large fraction of the Indian population (especially the financially weaker sections). The Indian
+government is also promoting the need for legal education in various Indian languages.2
+Since most legal text (e.g., laws of the land, manuals for legal education) is already available in
+English, the most practical way is to translate legal text from English to Indian languages. For this
+translation, one of the several existingMachine Translation (MT) systems can be used, including
+commercial systems such as the Google Translation system,3 Microsoft Azure Translation API,4
+and so on. Also there has been a lot of academic research on developing MT systems to and between
+Indian languages [Haddow and Kirefu2020; Kunchukuttan2020; Ramesh et al. 2022; Siripragada
+et al. 2020]. However, to our knowledge, very few prior works have focused on Indian language
+translations in the legal domain(see Section2 for a description of these works). Hence, with respect
+to translation in the legal domain, some important questions that need to be answered are—(i)how
+good are the existing MT systems for translating legal text to Indian languages?and (ii)how well do
+standard MT performance metrics agree with the opinion of Law practitioners regarding the quality of
+translated legal text?Till date, there has not been any attempt to answer the questions stated above,
+and there does not exist any benchmark for evaluating the quality of the translation of legal text to
+Indian languages. In this work, we bridge this gap by making the following contributions:
+—We developMILPaC (Multilingual Indian Legal Parallel Corpus), one of the first parallel
+corpus in Indian languages in the legal domain. The corpus consists of three high-quality
+datasets carefully compiled from reliable sources of legal information in India, containing
+parallelalignedtextunitsinEnglishandvariousIndianlanguages,includingbothIndo-Aryan
+languages (Hindi, Bengali, Marathi, Punjabi, Gujarati, and Oriya) and Dravidian languages
+(Tamil, Telugu, and Malayalam).5 Note that many of these are low-resource languages.
+MILPaC can be used for evaluating MT performance in translating legal text from English to
+various Indian languages, or from one Indian language to another. Different from existing
+parallel corpora in the Indian legal domain (see Section2), MILPaC is carefully curated from
+verified legal sources and ratified by Law experts, making it far more reliable for evaluating
+MT systems in the Indian legal domain. Moreover, MILPaC’s versatility allows its use in other
+tasks such as cross-lingual question answering, further distinguishing it from other datasets.
+1https://censusindia.gov.in/nada/index.php/catalog/42561
+2https://pib.gov.in/PressReleaseIframePage.aspx?PRID=1882225
+3https://cloud.google.com/translate/docs/samples/translate-v3-translate-text
+4https://azure.microsoft.com/en-us/products/cognitive-services/translator
+5In this article, we collectively refer to these languages asIndian languages.
+ACM Trans. Asian Low-Resour. Lang. Inf. Process., Vol. 24, No. 8, Article 80. Publication date: August 2025.
+====================================
+Evaluation of LLM for English to Hindi Legal Domain Machine Translation Systems (1).pdf
+--- PAGE 1 ---
+Proceedings of the Tenth Conference on Machine Translation (WMT) , V olume 2: Shared Task Papers, pages 823–833
+November 8–9, 2025. ©2025 Association for Computational Linguistics
+823
+Evaluation of LLM for English to Hindi Legal Domain Machine
+Translation Systems
+Kshetrimayum Boynao Singh, Deepak Kumar, Asif Ekbal
+Indian Institute of Technology, Patna
+{boynfrancis, deepakkumar1538, asif.ekbal}@gmail.com
+Abstract
+The study critically examines various Machine
+Translation systems, particularly focusing on
+Large Language Models, using the WMT25
+Legal Domain Test Suite for translating
+English into Hindi. It utilizes a dataset of
+5,000 sentences designed to capture the
+complexity of legal texts based on word
+frequency ranges from 5 to 54. Each frequency
+range contains 100 sentences, collectively
+forming a corpus that spans from simple legal
+terms to intricate legal provisions. Six metrics
+were used to evaluate the performance of the
+system: BLEU, METEOR, TER, CHRF++,
+BERTScore and COMET. The findings reveal
+diverse capabilities and limitations of LLM
+architectures in handling complex legal texts.
+Notably, Gemini-2.5-Pro, Claude-4, and
+ONLINE-B topped the performance charts
+in terms of human evaluation, showcasing
+the potential of LLMs for nuanced trans-
+lation. Despite these advances, the study
+identified areas for further research, especially
+in improving robustness, reliability, and
+explainability for use in critical legal contexts.
+The study also supports the WMT25 subtask
+focused on evaluating the weaknesses of large
+language models (LLMs). The dataset and
+related resources are publicly available at
+https://github.com/helloboyn/WMT25-TS
+1 Introduction
+Machine Translation (MT) has evolved from basic
+rule-based and statistical approaches to advanced
+neural network models, with recent advancements
+driven by Large Language Models (LLMs) that uti-
+lize extensive pretraining datasets and transformer
+architectures. (Vaswani et al., 2017) The legal do-
+main poses significant challenges for MT, requiring
+precise handling of context-dependent terminology
+(Appicharla et al., 2025), complex sentence struc-
+tures, and the accurate conveyance of cultural and
+jurisdictional nuances due to varying legal systems.
+This complexity surpasses that found in general
+language translation, making high levels of lexical
+accuracy, logical coherence, and syntactic fidelity
+essential for effective legal translation.
+The text highlights the crucial importance of ac-
+curacy and fidelity in legal document translation
+due to its high-stakes nature. It emphasizes that
+even minor mistranslations can lead to serious le-
+gal and financial consequences such as contractual
+disputes and judicial errors. Therefore, precise le-
+gal translation is essential to support international
+legal cooperation, manage cross-border litigation,
+provide equitable access to justice for non-native
+speakers, and make legal information accessible
+to a wider audience.(WMT) 1 The series has con-
+sistently served as a pivotal platform, instrumental
+in benchmarking progress and driving innovation
+within the machine translation research community
+across a diverse array of language pairs and do-
+mains. WMT25 (Kocmi et al., 2024) continues this
+vital tradition, offering meticulously designed spe-
+cialized test suites that push the boundaries of cur-
+rent MT technologies and identify areas for future
+breakthroughs. This paper specifically focuses on
+the WMT25 Legal Domain Test Suite for English
+to Hindi 2, embarking on an in-depth investigation
+into how various LLM-based MT systems perform
+when compared to more traditional and established
+hybrid approaches. Our overarching objective is
+to provide a comprehensive and nuanced analysis
+of their efficacy in this demanding domain, metic-
+ulously identifying the top performing contenders
+and critically discussing the broader implications of
+our findings for the future trajectory and practical
+application of legal machine translation systems, in-
+cluding considerations for deployment and ethical
+use.
+1https://www2.statmt.org/wmt25/testsuite-subtask.html
+2https://github.com/wmt25testsuite/wmt25
+--- PAGE 2 ---
+824
+2 Related Work
+The WMT shared tasks have consistently been a
+primary driving force behind significant advance-
+ments in Machine Translation research, fostering
+innovation and providing a standardized, competi-
+tive benchmark for evaluating system performance
+(Gain et al., 2022). Previous WMT editions, no-
+tably those from WMT24 (as evidenced by a se-
+ries of influential papers such as (Freitag et al.,
+2024) to (Ármannsson et al., 2024)), have unequiv-
+ocally showcased the increasing dominance and
+sophistication of neural MT (NMT) models (Ap-
+picharla et al., 2021). These works have metic-
+ulously detailed a wide array of architectural in-
+novations, including the widespread adoption of
+transformer networks, advanced training method-
+ologies such as back-translation and knowledge dis-
+tillation, and impressive performance gains across
+diverse language pairs and specialized domains.
+Key themes emerging from this extensive body of
+research include the paramount importance of large-
+scale pre-training on vast textual corpora to learn
+robust linguistic representations, the efficacy of
+fine-tuning models on domain-specific data (Bhat-
+tacharjee et al., 2024; Moslem et al., 2022) to en-
+hance specialized vocabulary and stylistic nuances
+(e.g., legal jargon, formal tone), and the contin-
+uous refinement of robust evaluation metrics to
+more accurately reflect human judgment of trans-
+lation quality. Techniques like data augmentation
+(e.g., synthetic data generation), transfer learning
+(Singh et al., 2023a) from high-resource to low-
+resource languages, and the development of more
+efficient attention mechanisms have been central
+to these advancements, enabling NMT models (?)
+to capture intricate linguistic patterns and contex-
+tual dependencies with greater precision than their
+predecessors.
+The rapid advancement of Large Language Mod-
+els (LLMs) like GPT, Gemini, and Claude has sig-
+nificantly transformed Machine Translation (MT)
+research by challenging existing paradigms. These
+models, originally crafted for general language
+tasks, have shown impressive zero-shot and few-
+shot translation skills due to their training on vast,
+diverse datasets. They excel in capturing complex
+semantics and context, making them promising for
+specialized fields such as legal translation, where
+precision and adherence to terminology are critical.
+Research is actively exploring their (Gain et al.,
+2021) adaptation for specific MT tasks, and it often
+outperforms traditional Neural Machine Transla-
+tion (NMT) (Singh et al., 2023b, 2024) models in
+challenging situations, such as low-resource lan-
+guages and complex linguistic features (Manakhi-
+mova et al., 2024). Nonetheless, adapting LLMs to
+specific domains poses challenges, such as the risk
+of losing general linguistic knowledge, generating
+plausible but incorrect legal outputs, and maintain-
+ing strict legal fidelity without creative rephrasing.
+3 Methodology
+3.1 Dataset
+The research uses a specialized Legal Domain Test
+Suite for WMT25 to evaluate translation systems
+from English to Hindi. This dataset consists of
+5000 sentences derived from authentic legal doc-
+uments on Table 1, reflecting the complexity and
+diversity of legal texts. It includes sentences vary-
+ing in length from about 5 words to 54 words.
+Word-Count Sentences Eng-Token Hin-Token
+5–15 1,600 20000 23046
+16–35 1,700 49300 40798
+36–54 1,700 78199 69627
+Total 5,000 147499 133471
+Table 1: Corpus statistics for the English and Hindi legal
+dataset by word count range.
+The variation enables testing of systems’ adapt-
+ability and robustness across different linguistic
+complexities, from precise legal terms to complex
+legal judgments. The dataset tests systems on their
+ability to handle the unique vocabulary, tone, and
+structure of legal language, ensuring accurate trans-
+lation that maintains legal intent and avoids ambi-
+guity.
+3.2 Automatic Evaluation Metrics
+To deliver a comprehensive and multifaceted (Chen
+et al., 2023) assessment of the translation qual-
+ity generated by the various systems, six well-
+established and complementary automatic evalu-
+ation metrics were rigorously utilized. The choice
+of these metrics was deliberate, with the aim of cap-
+turing diverse aspects of translation quality: lexical
+overlap, semantic equivalence, and character-level
+accuracy, all of which are essential for the rigorous
+legal domain.
+• BLEU (Bilingual Evaluation Understudy):
+The text examines the BLEU metric used
+====================================
+JELLLSVol.3Issue.186-100.pdf
+--- PAGE 1 ---
+86 
+ 
+Journal of English Language for Linguistics and Literary Studies 
+    Vol.(3), Issue (1); Summer, 2025,  86-100  
+ 
+ 
+ 
+Artificial Intelligence and Legal Translation: Collaboration or Competition? 
+ 
+(1) Ibrahim Talaat Ibrahim |  (2) Ammar Khalaf Zemam 
+ 
+1 College of Arts, Al-Iraqia University, Baghdad, Iraq  
+2 Department of Scholarships and Cultural Relations, University of Kerbala, Karbala, Iraq 
+ 
+Email: 1ibrahim_al-bayati@aliraqia.edu.iq,  2 ammar.kh@uokerbala.edu.iq 
+Received: April 17, 2025 
+Reviewed: May 2, 2025 
+Accepted: June 4, 2025 
+Published: June 07, 2025 
+K E Y W O RD S  A B S T R AC T 
+Artificial 
+Intelligence; 
+Legal Translation; 
+Human 
+Translation; 
+Arabic Legal 
+Texts; Google 
+Translate; 
+ChatGPT; Eclectic 
+Model of 
+Analysis; 
+Translation 
+Accuracy; 
+Machine 
+Translation. 
+ Artificial intelligence (AI) has revolutionized many fields, legal 
+translation being no exception, and has raised fundamental questions 
+on whether it is a friend or foe of human translators. Legal translation 
+is context-sensitive and accurate transfer of m eaning from one legal 
+system to another where accuracy and consistency matter the most. 
+The current study juxtaposes AI as a colleague or rival of human 
+translators in the context of legal translation. The study aims to 
+compare the accuracy, reliability, a nd limitations of machine 
+translation software, Google Translate and ChatGPT, and human 
+translation of Arabic judicial texts. There is an eclectic analytical 
+model where the study employs linguistic, legal, and translation 
+studies frameworks in which the e fficacy of AI in managing legal 
+terminology, phrases, and contextual nuance is tested. The study 
+presupposes that AI, while improving efficiency in translation, will be 
+unable to manage the higher-level subtleties of legal terminology. The 
+study adopts com parative analysis for verifying or falsifying the 
+assumptions and determines the extent to which AI can replace or 
+complement human ability in legal translation. The findings enlighten 
+the debate on AI use in legal translation and its effects on the practice 
+in the future. 
+ 
+Introduction  
+The application of artificial intelligence (AI) in the translation industry has sparked intense 
+discussion about its purpose for professional human translators. Legal translation, in particular, 
+whose correctness, context, and sensitivity to legal regimes by definition must be absolute, 
+presents special challenges that AI-based tools must  meet. The  development  of  AI-powered
+--- PAGE 2 ---
+87 
+I. T. Ibrahim and A. K. Zeman                                               Journal of English Language for Linguistics and Literary Studies 
+    
+ 
+ 
+ translation software, such as Google Translate and ChatGPT, has revolutionized the translation 
+practice and prompted scholars to examine their reliability, accuracy, and possible weaknesses 
+in dealing with technical legal documents (Pym, 2011; O'Hagan, 2020). While AI will persist 
+in its evolution, the most essential inquiry stays the same: Is AI a complementary aid that 
+enhances legal translating, or a replacement danger to human professionalism? 
+Legal translation is not the same as general translation because legal language is technically 
+complex, employs strict syntactic structures, and has meaning that is jurisdictionally bound 
+(Cao, 2007). Translation errors within the legal profession can lead to uncertainty, contractual 
+disputes, or legal penalties, and hence fidelity and contextual accuracy are necessary (Šarčević, 
+1997). Although AI -powered translation software has achieved re markable advancements in 
+many areas of linguistic studies, their use in the translation of legal documents is plagued with 
+issues regarding their ability to handle legal complexities, ambiguous meanings, and 
+consistency with different legal systems (Castro et al., 2022). 
+The present study aims to compare the performance of AI -powered translation software and 
+human translation in the domain of Arabic legal documents. With an eclectic analytical 
+framework drawn from linguistic, legal, and translation studies paradigms, this research 
+balances the comparative strengths and weaknesses of AI translation for legal terminology, 
+syntactic complexity, and contextual situationality. Google Translate and ChatGPT, two of the 
+largest-volume AI translation engines, are emp loyed as case studies for examining the 
+boundaries within which AI is able to satisfactorily translate legal texts. 
+The research anticipates that though AI translation tools can possibly make the translations 
+more effective and reachable, they have not yet  filled in the gap of legal language 
+sophistication. Unlike the above research, the current study attempts to validate or nullify these 
+results, adding to the general discussion of AI adoption in legal translation. The findings will 
+provide a glimpse of wh ether AI is to be regarded as a helpful tool that augments the 
+professionalism of human or a potential competitor that has the ability to threaten the career of 
+legal translators in the coming years. 
+In addressing these questions, this research adds to the scholarly and practitioner discourse on 
+AI and legal translation interaction. This research provides an informed critique of AI 
+challenges and opportunities, providing a balanced examination of its potential use in legal 
+translation practice. This researc h's findings will enter the world of legal practitioners, 
+translators, policymakers, and AI developers in attempting to balance the dynamic relationship 
+between artificial intelligence and legal translation. 
+Literature Review 
+The field of legal translation  and (AI) has been a case study of great academic contributions 
+with special focus on the following idea: to which AI will augment or replace human translators 
+in the legal translation area. The literature review depends on available studies in the fields of 
+AI translation, problems of legal translation, and the effectiveness of AI-powered tools such as 
+Google Translate and ChatGPT in translating legal texts. 
+Machine Translation and AI for Legal Use 
+Machine translation (MT) has come across great progress, s tarting from early rule -based 
+methods to statistical and, more recently, neural machine translation (NMT) models (Koehn, 
+====================================
+1-s2.0-S2215039025000323-main.pdf
+--- PAGE 1 ---
+The usage of artificial intelligence in legal translation: Bridging the gap 
+between law and language
+Amjad Mohammad Badah a
+ , Camellia Najeh Khalaf b
+ , Fatima Jamil Dwaikat c
+ ,  
+Naji AlQbailat d,*
+a Doctoral Programme in Linguistics, Literature and Translation, University of Malaga, Malaga, Spain
+b Faculty of Graduate Studies, Social Sciences Department, Arab American University, Ramallah, Palestine
+c Department of English Language and Literature, Al-Quds Open University, Jenin, Palestine
+d Al-Balqa Applied University, Salt, Jordan
+ARTICLE INFO
+Keywords:
+Artificial intelligence
+AI-Powered translation
+Legal translation
+Arabic-English translation
+ChatGPT
+DeepSeek
+ABSTRACT
+With the rise of Artificial Intelligence (AI) in the translation industry, translators are increasingly relying on AI- 
+powered tools in their translation tasks to accelerate the translation process and improve the quality of their 
+output. Undoubtedly, legal documents demand utmost precision, and while AI tools promise enhanced efficiency 
+and consistency, their ability to fully grasp the intricate cultural and legal nuances that human translators master 
+remains limited. In this context, the present research conducts a comparative analysis of Arabic-English legal 
+translations produced by 27 university translation students and two AI-powered tools (ChatGPT and DeepSeek), 
+examining three key dimensions of translation quality: accuracy, naturalness, and error typology, including 
+lexical, syntactic, and pragmatic errors. The dataset comprises two authentic Arabic legal texts: one special 
+power of attorney and one judicial pleading. They were selected to represent distinct legal genres and levels of 
+linguistic and cultural complexity. We found that while AI excels in technical terminology and structural 
+coherence, it often stumbles with culturally rich expressions and subtle contextual meanings. Human translators, 
+despite occasional terminological inaccuracies, demonstrate a superior understanding of these critical cultural 
+and legal elements. In conclusion, the study supports a collaborative approach that integrates the efficiency and 
+accuracy of AI with the cultural awareness and contextual expertise of human translators. By adopting such a 
+hybrid model, it becomes possible to bridge the gap between law and language, ultimately ensuring the pro-
+duction of high-quality legal translations in an increasingly interconnected world. The current study offers 
+empirical evidence on the strengths and limitations of AI translation systems and human translation in the 
+Arabic–English legal context, informing best practices for quality legal translation. The findings contribute 
+empirical evidence to the growing body of research on AI-assisted legal translation, highlighting both the po-
+tential and limitations of large language models in Arabic-English legal contexts.
+1. Introduction
+Technology has played a significant role in the evolution of the 
+translation industry. From the early days of Machine Translation (MT) 
+and Computer-Assisted Translation (CAT) tools to the recent integration 
+of Artificial Intelligence (AI), the translation field has witnessed dra-
+matic changes. Such changes have been accompanied by acceptance 
+from language professionals who have recognized the advantages of 
+such technological advancement. Among the main benefits are cost- 
+effectiveness, increased speed, and greater accuracy. However, the rise 
+of technology, including AI, has been met by an increasing debate about 
+the replacement of humans (Moneus and Sahari, 2024). Interestingly, 
+there is a growing interest in the translations made by AI-powered tools 
+and humans (Al-Kaabi et al., 2024).
+Legal translation has long been known as a common type of trans-
+lation across different countries. It is a unique type of translation that 
+has precise terminology and requires special attention. The translator 
+needs not only to render the source meaning linguistically but also to 
+* Corresponding author.
+E-mail addresses: amjad.badah@uma.es (A.M. Badah), Camellia.khalaf@aaup.edu (C.N. Khalaf), fdwaikat@qou.edu (F.J. Dwaikat), najimq1@bau.edu.jo
+(N. AlQbailat). 
+Contents lists available at ScienceDirect
+Ampersand
+journal homepage: www.elsevier.com/locate/amper
+https://doi.org/10.1016/j.amper.2025.100248
+Received 17 July 2025; Received in revised form 5 December 2025; Accepted 10 December 2025  
+Ampersand 16 (2026) 100248 
+Available online 12 December 2025 
+2215-0390/© 2026 The Authors. Published by Elsevier Ltd. This is an open access article under the CC BY license ( http://creativecommons.org/licenses/by/4.0/ ). 
+--- PAGE 2 ---
+render the legal aspect of the legal text at hand (Al-Kaabi et al., 2024). 
+AI’s role in legal translation has become a hot topic for investigation by 
+various translation researchers. Although AI-powered translation tools 
+may offer promising improvements in legal translation, like other types 
+of translation, they raise some concerns related to privacy, quality, and 
+accuracy. In the context of L2 writing, previous research has shown that 
+AI-enhanced tools can improve writing competency (Abuhussein and 
+Badah, 2025). This highlights the potential of AI systems to support 
+accuracy and fluency which are significant considerations in legal 
+translation, too.
+With the legal systems becoming more multilingual and globalized, 
+understanding the performance of AI in the translation of legal contexts 
+is important. Misinterpretations in legal texts and documents may lead 
+to serious consequences, such as violations of rights. The existing body 
+of Arabic-English translation research shows that there is a dearth of 
+studies addressing legal translation. The current paper, therefore, ex-
+plores the implications of using AI in legal translation in Arabic-English 
+texts by comparing it with human translation. To do so, it tries to find 
+answers to the two questions below: 
+1. To what extent does the human translation of legal texts differ from 
+that generated by AI-powered machine translation tools in terms of 
+accuracy and naturalness?
+2. What types of errors are most common in AI translations of legal 
+texts, and how do they differ from those in human translations?
+The significance of the current study lies in its attempt to examine 
+the translatability of authentic legal Arabic text into English by AI- 
+powered tools. The researchers aim to contribute to the ongoing 
+discourse on how to integrate technology-driven tools into the trans-
+lation process. Furthermore, the findings are expected to help trans-
+lation practitioners and legal professionals make informed decisions 
+about the translation of legal texts where two cultural and legal systems 
+may differ.
+2. Literature review
+2.1. The nature of legal translation: system-bound constraints and 
+linguistic complexity
+Legal translation has long been recognized as one of the most 
+demanding branches of translation due to its genre-bound nature and 
+the highly formalized conventions that govern legal drafting across ju-
+risdictions (ˇSarˇcevi´c, 1997; Cao, 2007). Unlike general translation, 
+which primarily seeks communicative clarity, legal translation requires 
+functional equivalence that preserves the legal force, procedural sig-
+nificance, and pragmatic intent of the source text. This involves strict 
+adherence not only to terminology but also to formulaic structures, 
+phraseology, and culturally embedded legal concepts that carry binding 
+meaning within the target legal system (Biel, 2014). In Arabic–English 
+translation, achieving such equivalence becomes even more challenging 
+due to systemic differences between civil-law and common-law tradi-
+tions, the presence of Islamic-influenced legal constructs, and the 
+frequent use of honorific and culture-specific expressions (Alwazna, 
+2016). These complexities illuminate the enduring tension between 
+language and law, which lies at the core of debates on whether tech-
+nology can effectively bridge this gap.
+2.2. Limitations of traditional machine translation in legal contexts
+The shortcomings of traditional machine translation (MT) further 
+highlight this tension. Although neural machine translation has 
+improved in fluency and general-domain performance (Vasilescu and 
+Kurokawa, 2021), research consistently shows that MT systems struggle 
+to maintain legal accuracy, system-bound consistency, and drafting 
+conformity in highly regulated genres such as contracts and judicial 
+pleadings (Zhang and Vogel, 2019). Standard automatic evaluation 
+metrics such as BLEU and METEOR tend to overvalue surface similarity 
+while failing to capture deeper legal features such as clause structure, 
+operative terminology, and formulaic meaning (Biel, 2019). As a result, 
+scholars increasingly call for evaluation frameworks that incorporate 
+legal-drafting norms, recognizing that legal translation cannot be 
+assessed through linguistic metrics alone (Cao, 2020). These limitations 
+reinforce the need for more contextually intelligent technologies 
+capable of handling the unique demands of legal discourse.
+2.3. Large language models: emerging opportunities and persistent risks
+The advent of large language models (LLMs) introduces both prom-
+ising capabilities and new uncertainties. Drawing on massive multilin-
+gual corpora and advanced contextual modeling, systems such as GPT- 
+based models and DeepSeek demonstrate enhanced sensitivity to lin-
+guistic nuance and improved prompt-driven control (Briva-Iglesias 
+et al., 2024; Bajˇci´c and Golenko, 2024). Their ability to interpret legal 
+meaning across clauses and contextually complex passages suggests 
+advantages over traditional MT. However, generative features also 
+introduce risks including hallucinated terminology, unjustified para-
+phrasing, inconsistent legal phrasing, and the insertion or omission of 
+system-bound legal constructs (Huang et al., 2020). These risks are 
+heightened in Arabic-English legal translation, where conceptual mis-
+matches and culturally embedded expressions can easily lead to dis-
+torted legal meaning. Thus, although LLMs offer a potential 
+technological bridge between law and language, their reliability in 
+high-stakes legal settings remains unproven. As AI tools increasingly 
+enter legal workflows, their promise of efficiency and consistency has 
+attracted the interest of practitioners and institutions (Lee and Yoon, 
+2023; Neuburger, 2020). Yet adoption depends on demonstrated reli-
+ability in preserving legal accuracy, jurisdictional conformity, and 
+functional intent.
+2.4. Contribution of the study
+Existing research on AI legal translation remains heavily concen-
+trated in European languages and common-law systems, leaving Arabic 
+legal genres-particularly powers of attorney, court pleadings, and 
+contractual instruments-significantly underexplored. Early studies 
+indicate that ChatGPT performs well in general legal drafting tasks in 
+English (Jones and Williams, 2023), though inconsistencies persist in 
+jurisdiction-specific terminology and cultural nuance (Zhou et al., 
+2021). DeepSeek’s bilingual modeling shows promise (Nielsen and Kim, 
+2022; Park et al., 2021), but no systematic comparison has yet examined 
+its performance against ChatGPT in Arabic–English legal translation of 
+operative documents.
+2.5. Theoretical framework (Translation Quality Assessment-Juliane 
+House)
+Juliane House’s Translation Quality Assessment model provides an 
+informative framework for evaluating translation quality across various 
+contexts, including legal translation. House’s model is particularly 
+relevant for the current study due to the complexities in legal discourse, 
+which often involves specialized terminology and requires cultural 
+considerations. The model distinguishes between overt and covert 
+translation strategies. Overt translation refers to a more literal transfer 
+of the ST and can be useful when legal terminology is well-established in 
+both languages. On the other hand, covert translation focuses on 
+creating functional equivalence and is mainly employed when cultural 
+or legal concepts do not have direct equivalents in the target language. 
+Quoting House’s words, overt translation is “one in which the addressees 
+of the translation text are quite ‘overtly’ not directly addressed: an overt 
+translation is not a ‘second original’” (House, 2015, p. 54). Conversely, 
+she defines covert translation as “a translation whose source text is not 
+A.M. Badah et al.                                                                                                                                                                                                                               Ampersand 16 (2026) 100248 
+2 
+====================================
+AI Legal Translation India_ How AI-Powered Translation Is (1).pdf
+--- PAGE 1 ---
+Home Blog AI Legal Translation India: How AI-Powered Translation Is Transforming Indian Legal Practi…
+L E G A L  T E C H
+AI Legal Translation India: How AI-Powered
+Translation Is Transforming Indian Legal Practice
+(2026)
+JL Juniorlawyer Team
+July 17, 2026 · 16 min read
+Article FAQs
+India's legal system operates across 22 scheduled languages and hundreds of dialects. Every day,
+lawyers, judges, and litigants encounter a persistent challenge: critical legal documents — FIRs,
+court orders, judgments, witness statements, contracts, government notifications — are drafted in
+one language but needed in another. A criminal lawyer in Delhi receives a Bihar court order in Hindi
+but needs an English translation for a Supreme Court SLP. A corporate lawyer in Mumbai must
+L
+L E G A L  T E C H
+
+9/13/26, 3:25 AM AI Legal Translation India: How AI-Powered Translation Is
+https://juniorlawyer.in/blog/ai-legal-translation-india-guide-lawyers/ 1/17
+--- PAGE 2 ---
+translate a Marathi land revenue document for a foreign client's due diligence. A family court
+litigant in Chennai submits evidence in Tamil that the opposing counsel — based in Hyderabad —
+cannot read.
+Until recently, legal translation in India was an entirely manual process: slow, expensive,
+inconsistent, and often dangerously inaccurate. AI-powered legal translation is now changing this
+reality fundamentally.
+This guide examines how AI legal translation works, why it matters for Indian legal practice, the
+tools available, the risks involved, and how lawyers can adopt this technology effectively in 2026.
+Why Legal Translation Matters More Than Ever in India
+The Multilingual Reality of Indian Courts
+India's judiciary operates at multiple linguistic levels:
+Supreme Court: English only (Article 348 of the Constitution)
+High Courts: English (with Hindi permitted in some states under Presidential orders — UP, MP,
+Bihar, Rajasthan)
+District Courts and Trial Courts: Predominantly in the state's official language (Hindi, Marathi,
+Tamil, Telugu, Kannada, Bengali, Gujarati, Malayalam, etc.)
+Tribunals: Mixed — NCLT uses English, Labour Courts often use the state language, Consumer
+Forums accept both
+This creates a translation bottleneck at every stage of litigation:
+Appeals from district courts (vernacular) to High Courts (English) require full translation of
+lower court records
+Supreme Court SLPs require English translations of High Court orders originally passed in Hindi
+Cross-state litigation demands translation between two vernacular languages or from
+vernacular to English
+ 
+9/13/26, 3:25 AM AI Legal Translation India: How AI-Powered Translation Is
+https://juniorlawyer.in/blog/ai-legal-translation-india-guide-lawyers/ 2/17
+====================================
+trans-kom_17_02_05_Giampieri_AI.20241128 (1).pdf
+--- PAGE 1 ---
+trans-kom  ISSN 1867-4844 https://www.trans-kom.eu 
+trans-kom ist eine wissenschaftliche Zeitschrift für Translation und Fachkommunikation.  
+ 
+trans-kom 17 [2] (2024): 343–358 
+Seite 343 
+  
+ 
+https://www.trans-kom.eu/bd17nr02/trans-kom_17_02_05_Giampieri_AI.20241128.pdf 
+Patrizia Giampieri 
+The use of AI in the translation of legal documents 
+A critical analysis 
+Abstract 
+The use of Artificial Intelligence (AI) in the legal field has grown substantially, and law firms have 
+been resorting to intelligent machines for various purposes. Machine translation (MT) is also on 
+the rise and legal translators are increasingly relying upon it. This paper aims to assess the quality 
+and reliability of AI-driven legal translations. To do so, two chatbots, namely ChatGPT and Gemini, 
+are applied to translate (from Italian into English) an extract of a notice of default issued by an 
+Italian lawyer. To do so, the two automated target texts are analysed in light of legal definitions 
+and principles sourced from statutory documents, the case-law and legal monolingual dictionaries. 
+The paper finds shortcomings that range from mistranslated words and formulae to minor 
+inaccuracies. In addition, some expressions sound infrequent or awkward to a competent target 
+readership. The paper underlines the importance of human post-editing, of the deep knowledge 
+of the subject-matter, and of consulting targeted language and legal resources. 
+1 Introduction 
+This article focuses on AI in the legal field. It firstly discusses and analyses the advantages 
+and drawbacks of AI. Then, it delves into the traits of MT- and AI-driven legal translation, 
+and brings to the fore the more salient features and challenges. 
+1.1 Definition of AI 
+The first definition of Artificial Intelligence (AI) dates back to the 1950s, where scholars 
+such as Turing (1950) and McCarthy et al. (1955) envisaged the possibility to create 
+machines that could behave intelligently. In particular, Turing's (1950) studies explored 
+whether a computer was able to convince a human that it was also a human by mani-
+festing intelligent thinking and analytical abilities. 
+Nowadays, AI is defined as a branch of computer science that is dedicated to building 
+machines capable of developing intelligent behaviour (Alarie/Niblett/Yoon 2018). AI-
+based solutions can be entirely software-based and act virtually (such as search engines 
+or speech recognition systems), or they can be inserted into hardware machines (such 
+as self-driven cars or drones) (European Commission 2018: 1). What is currently relevant 
+--- PAGE 2 ---
+Patrizia Giampieri trans-kom 17 [2] (2024): 343–358 
+The use of AI in the translation of legal documents Seite 344 
+A critical analysis 
+ 
+ 
+in the definition and application of AI; however, is the fact that it must be human-centred 
+(European Commission 2019: 4). This means that a human's freedom and the respect 
+for its dignity must be practically feasible and relevant (European Commission 2019: 10). 
+1.2 Uses of AI in the legal field 
+The applications of AI in the legal domain are various. Brooks, Geherhes and Vorley 
+(2020: 150) distinguish between using AI-driven solutions in the practice of the legal 
+profession, and as a part of the services offered. In the first case, AI allows law firms to 
+automate repetitive and labour-intensive tasks, given that decision-making and legal 
+expertise are not needed. This helps lawyers improve and increase their skills, as they 
+can dedicate time and effort to other activities where their professional judgement is more 
+relevant. In the second case, AI is used to improve the internal workflow by streamlining 
+everyday work processes. 
+1.2.1 Advantages 
+AI is welcomed in the legal field as it brings several advantages. Amongst the most 
+acclaimed ones, AI-driven solutions can perform the following activities: analysing and 
+reviewing contracts and lawyers' briefs by highlighting weaknesses and suggesting 
+corrections, new elements and citations; automating due diligence and compliance 
+review processes; fostering e-discovery by scanning pre-trial documents and bringing to 
+the fore possible cases for litigation; processing disputes analytics by retrieving statistics 
+per judge, case type and law firm (Thomson Reuters 2023: 11–13). In the United States 
+of America, courts of law use AI-driven solutions to deal with repetitive processes, such 
+as filing court cases (“auto-docketing”) (Joint Technological Committee 2010: 7). 
+In addition, chatbots have been implemented to efficiently address the increasing 
+number of inquiries (Joint Technological Committee 2010: 7). In this way, justice is 
+delivered more efficiently and rapidly. AI is also supposed to spur a more equitable 
+access to justice (Council 2020; eu-LISA and Eurojust 2022). 
+The Council of the EU’s Conclusions (2020), in fact, state that digital technology 
+helps improve proceedings and deal with standardised processes more smoothly 
+(Council 2020: 6). In this way, procedures are followed more efficiently and effectively; 
+hence, everyone can benefit from faster justice services (Council 2020: 6). 
+1.2.2 Risks 
+If several scholars praise AI for its many advantages, the use of intelligent machines may 
+also pose challenges and risks (Leslie et al. 2021; Sheeba 2023). Sheeba (2023: 8–9), 
+for example, raises ethical issues with regard to privacy, confidentiality and intellectual 
+property rights. In addition, AI solutions may not be able to cope with nuanced legal cases 
+that need long-term expertise and field experience.  
+AI may also give rise to biases. Intelligent machines, in fact, can be used to forecast 
+human behaviours and assess risks. This means that they could reproduce the fallibilities 
+====================================
+Altakhaineh-et-al_AComparativeStudy_31032025.pdf
+--- PAGE 1 ---
+International Journal of 
+Language & Law 
+ 
+Altakhaineh et al., JLL 14 (2025): 63–80 
+www.languageandlaw.eu 
+International Journal of Language & Law vol. 14 (2025) 63 
+DOI: 10.14762/jll.2025.063 
+A Comparative Study of Accuracy in 
+Human vs. AI Translation of Legal 
+Documents into Arabic 
+ 
+Abdel Rahman Mitib Altakhaineh, Ghazi Ayed Alghathian & Mashal Mufleh Jarrah* 
+ 
+Abstract 
+This study investigates the comparative accuracy of human and AI-generated translations 
+of legal documents into Arabic, focusing specifically on the performance of ChatGPT 
+against human translations. This study employs a comparative research design, where a 
+corpus of words 20,000 words from legal texts, including contracts and agreements, 
+translated by both AI and professional human translators. The research aimed to assess 
+three primary dimensions: correct legal terminology usage, clarity of expression, and ad-
+herence to the Arabic legal framework. Through a structured evaluation process, key 
+findings revealed that human translations significantly outperformed AI-generated ver-
+sions in all assessed criteria. Human translators demonstrated superior mastery of legal 
+terminology and clarity in complex legal constructs, as well as adherence to formal legal 
+standards and cultural differences inherent in Arabic legal contexts. While AI tools like 
+ChatGPT show promise in producing contextually relevant translations for simpler texts, 
+they often fall short in capturing the precise legal terminology and complex constructs 
+required for effective legal communication. This research highlights the continued neces-
+sity of skilled human translators in the legal field and suggests a hybrid approach that 
+leverages AI tools to augment human expertise in translation processes. 
+ 
+Keywords 
+translation accuracy, human translation, AI translation, legal documents, Arabic lan-
+guage, translation evaluation, corpus analysis 
+ 
+Submitted: 11.10.2024, accepted: 05.03.2025, published online: 05.04.2025 
+ 
+*Abdel Rahman Mitib Altakhaineh (Corresponding author): School of Foreign Languages, The University 
+of Jordan, Amman, Jordan, a.altakhainhe@ju.edu.jo. Ghazi Ayed Alghathian, School of Law, The University 
+of Jordan, Amman, Jordan, g_alghathian@ju.edu.jo. Mashal Mufleh Jarrah, School of Law, The University 
+of Jordan, Amman, Jordan, ma.jarrah@ju.edu.jo. This research received no funding. 
+--- PAGE 2 ---
+Altakhaineh et al., A Comparative Study of Accuracy  JLL 14 (2025): 63–80 
+DOI: 10.14762/jll.2025.063 64 
+1. Introduction     
+In today’s globalized world, translation is a service for which the demand will always 
+exceed supply (Kit & Wong, 2008), and the demand for accurate and efficient translation 
+of legal documents has grown significantly, particularly in multilingual legal systems 
+and cross-border transactions. Legal translation demands precise conveyance of the 
+message's content while maintaining its form and the unique characteristics of the tar-
+get language (Alwazna, 2013), as even the slightest error can lead to significant misinter-
+pretations and legal consequences. Traditionally, legal document translation has been 
+the responsibility of professional human translators, who ensure precision in language, 
+tone, and legal terminology while adhering to the standards of the target legal system. 
+However, advancements in artificial intelligence (AI) and machine learning have led to 
+the emergence of AI-powered translation tools, offering a faster and more cost-efficient 
+alternative. In other words, the advancement of artificial intelligence has triggered a 
+paradigm shift in professional translation work, and both individuals and professional 
+translators are increasingly relying on AI for translation tasks (Awadh, 2024). 
+This study aims to conduct a comparative analysis of human and AI translation in the 
+specific context of legal documents translated from English into Arabic, a specialized 
+field that requires both linguistic accuracy and an understanding of legal implications 
+and consequences (Rahim, 2024), given its direct connection to the law. While AI trans-
+lation tools have made significant advancements, existing research has primarily fo-
+cused on general or literary translation rather than the legal domain, where precision 
+and adherence to legal standards are paramount. Moreover, studies comparing AI and 
+human translators in legal contexts, particularly for English-Arabic translation, remain 
+limited. This study addresses this gap by evaluating the accuracy of translations pro-
+duced by professional human translators and AI-based tools in legal settings.  
+In particular, it is an attempt to answer the following research questions: 
+1. How accurate are AI translation tools in translating legal documents into Arabic, 
+compared to professional human translators, in terms of legal terminology, linguistic 
+precision, and adherence to legal standards? 
+2. What are the key advantages and limitations of AI translation technologies in the 
+context of legal translation into Arabic, and can they potentially surpass or complement 
+human translators in maintaining legal accuracy and clarity? 
+By answering the above questions, this study contributes to the understanding of AI 
+translation in legal contexts, specifically English-Arabic legal translation, an area not yet 
+fully explored. It highlights the limitations and potential applications of AI tools in legal 
+translation, emphasizing the need for a hybrid approach where AI supports, rather than 
+replaces, human translators. The findings are significant for legal professionals, trans-
+lation agencies, and policymakers, offering insights into how AI can be integrated into 
+translation workflows while maintaining legal accuracy. Additionally, this study paves 
+the way for future research, including longitudinal studies on AI’s evolving capabilities 
