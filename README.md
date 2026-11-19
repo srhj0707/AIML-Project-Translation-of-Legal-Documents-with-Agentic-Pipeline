@@ -251,3 +251,14 @@ Unlike standard general-purpose translation tools that blindly map text:
 1. **Zero Entity Loss**: Critical statutory provisions, case numbers, monetary amounts, and dates are protected through entity masking and agentic restoration.
 2. **Legal Modality Integrity**: Prevents accidental legal liability inversion by strictly auditing modal obligations (*shall* vs *may*) and strict negations (*shall not*).
 3. **Automated Jurist Triaging**: Lowers human verification overhead by automatically flagging high-risk or ambiguous clauses for qualified legal review while green-lighting verified clauses.
+
+## Contributors & Mentorship
+
+> **Project Mentor**
+> ### Dr. Sajitha Krishnan
+> *Guiding our research direction, legal-domain rigor, and agentic translation methodology.*
+
+### Project Contributors
+* **Surampudi Sudarshan Rao**
+* **Sai Jeevan**
+* **Sai Raj Hanuman J**
