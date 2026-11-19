@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legal Translation Audit Dashboard</title>
+<style>
+    :root {
+        --primary: #1e3a8a;
+        --primary-light: #3b82f6;
+        --success: #15803d;
+        --warning: #b45309;
+        --danger: #b91c1c;
+        --bg: #f8fafc;
+        --card-bg: #ffffff;
+        --border: #e2e8f0;
+        --text: #0f172a;
+        --text-muted: #64748b;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 24px;
+        line-height: 1.5;
+    }
+    .container {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+    header {
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        color: white;
+        padding: 28px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    header h1 { margin: 0 0 8px 0; font-size: 26px; }
+    header p { margin: 0; opacity: 0.9; }
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+    .kpi-card {
+        background: var(--card-bg);
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .kpi-card h3 {
+        margin: 0 0 6px 0;
+        font-size: 13px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .kpi-card .value {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--primary);
+    }
+    .clause-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .clause-card.risk-critical { border-left: 6px solid var(--danger); }
+    .clause-card.risk-elevated { border-left: 6px solid var(--warning); }
+    .clause-card.risk-standard { border-left: 6px solid var(--primary-light); }
+    .clause-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 12px;
+        margin-bottom: 16px;
+    }
+    .clause-id { font-weight: 800; font-size: 16px; margin-right: 8px; }
+    .clause-type { color: var(--text-muted); font-size: 13px; margin-right: 8px; }
+    .risk-badge {
+        font-size: 11px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+    }
+    .risk-badge.risk-critical { background: #fee2e2; color: #991b1b; }
+    .risk-badge.risk-elevated { background: #fef3c7; color: #92400e; }
+    .risk-badge.risk-standard { background: #e0f2fe; color: #075985; }
+    .badge {
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+    .badge-success { background: #dcfce7; color: #166534; }
+    .badge-danger { background: #fee2e2; color: #991b1b; }
+    .fidelity-pill {
+        background: #f1f5f9;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-left: 8px;
+    }
+    .clause-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+    @media (max-width: 900px) {
+        .clause-grid { grid-template-columns: 1fr; }
+    }
+    .col-box {
+        background: #f8fafc;
+        padding: 12px 14px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+    }
+    .col-box label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 6px;
+    }
+    .text-source { color: #1e293b; font-size: 14px; margin: 0; }
+    .text-hindi { color: #0f172a; font-size: 15px; font-weight: 500; margin: 0; line-height: 1.6; }
+    .text-back { color: #334155; font-size: 14px; margin: 0; }
+    .metrics-row {
+        display: flex;
+        gap: 16px;
+        font-size: 13px;
+        background: #f1f5f9;
+        padding: 8px 14px;
+        border-radius: 6px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+    }
+    .repairs-box {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 6px;
+        padding: 10px 14px;
+        margin-bottom: 10px;
+        font-size: 13px;
+    }
+    .repairs-box ul { margin: 4px 0 0 0; padding-left: 20px; }
+    .action-pill {
+        background: #dbeafe;
+        color: #1e40af;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+    .flag-box {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: #991b1b;
+    }
+    .flag-box ul { margin: 4px 0 0 0; padding-left: 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Legal Translation Audit Dashboard</h1>
+        <p>Agentic AI + NLP Legal Document Translation Pipeline | English to Hindi with Back-Translation Validation</p>
+    </header>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <h3>Overall Status</h3>
+            <div class="value" style="font-size: 20px; color: #b45309;">HUMAN REVIEW REQUIRED</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Total Clauses</h3>
+            <div class="value">17</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Human Review Flags</h3>
+            <div class="value" style="color: #b91c1c;">2</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Legal Fidelity</h3>
+            <div class="value">97.19%</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Entity Exact Match</h3>
+            <div class="value">97.65%</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Back-Trans chrF</h3>
+            <div class="value">83.15</div>
+        </div>
+    </div>
+
+    <h2>Clause-by-Clause Translation & Audit Logs</h2>
+    
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_001</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">LEGAL NOTICE</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">विधिक सूचना</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">LEGAL NOTICE</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_002</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">Ref. No. LN/2026/041    Dated 11 October 2026</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">रेफरी. क्रमांक एलएन/2026/041 दिनांक 11 अक्टूबर 2026</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">Ref. Number LN/2026/041 dated 11 October 2026</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 42.87</span>
+                    <span><b>chrF:</b> 74.21</span>
+                    <span><b>Token F1:</b> 0.875</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_003</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">REGD. A.D.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">पंजीकृत पावती डाक (REGD. A.D.)</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">REGD. A.D.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_004</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">To, AquaPure Solutions Private Limited, 2nd Floor, 18 Residency Road, Bengaluru, Karnataka - 560025</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">सेवा में, एक्वाप्योर सॉल्यूशंस प्राइवेट लिमिटेड, दूसरी मंजिल, 18 रेजीडेंसी रोड, बेंगलुरु, कर्नाटक - 560025</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">To, Aquapure Solutions Private Limited, 2nd Floor, 18 Residency Road, Bengaluru, Karnataka - 560025</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 86.64</span>
+                    <span><b>chrF:</b> 95.76</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_005</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">Dear Sir,</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">महोदय,</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">Dear Sir,</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_006</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">Pursuant to the instructions from and on behalf of my client M/s GreenLeaf Industrial Supplies, through its proprietor Mr. Arjun Mehta, I do hereby serve you with the following Legal Notice:</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">मेरे मुवक्किल मैसर्स ग्रीनलीफ़ इंडस्ट्रियल सप्लाईज़ के निर्देशों के अनुसार और उनकी ओर से, इसके प्रोप्राइटर (स्वामी) श्री अर्जुन मेहता के माध्यम से, मैं आपको निम्नलिखित विधिक सूचना प्रदान करता हूँ:</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">As per the instructions and on behalf of my client M/s Greenleaf Industrial Supplies, through its Proprietor Shri Arjun Mehta, I provide you with the following legal notice:</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 45.19</span>
+                    <span><b>chrF:</b> 70.99</span>
+                    <span><b>Token F1:</b> 0.8136</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_007</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">1. That my client is a sole proprietorship firm under the name and style of M/s GreenLeaf Industrial Supplies, having its place of business at 24, Industrial Estate, Peenya, Bengaluru, Karnataka - 560058.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">1. यह कि मेरा मुवक्किल मेसर्स ग्रीनलीफ़ इंडस्ट्रियल सप्लाईज़ के नाम और शैली के तहत एक एकल स्वामित्व वाली फर्म है, जिसका व्यवसाय स्थान 24, इंडस्ट्रियल एस्टेट, पीन्या, बेंगलुरु, कर्नाटक - 560058 है।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">1. That my client is a Sole Proprietorship firm under the name and style of M/s Greenleaf Industrial Supplies having its place of business at 24, Industrial Estate, Peenya, Bengaluru, Karnataka – 560058.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 73.15</span>
+                    <span><b>chrF:</b> 90.03</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_008</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">2. That my client is engaged in the business of supplying water-treatment chemicals and industrial materials.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">2. यह कि मेरा मुवक्किल जल-उपचार रसायनों और औद्योगिक सामग्रियों की आपूर्ति के व्यवसाय में लगा हुआ है।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">2. That my client is engaged in the business of supplying water-treatment chemicals and industrial materials.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_009</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">3. That against your valid and confirmed order my client did your job work from time to time on credit basis as you have running credit account in the account books of my client operated in due course of business.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">3. यह कि आपके वैध और पुष्टि किए गए आदेश के विरुद्ध मेरे मुवक्किल ने समय-समय पर क्रेडिट के आधार पर आपका कार्य किया, क्योंकि व्यवसाय के दौरान संचालित मेरे मुवक्किल की खाता पुस्तकों में आपके पास क्रेडिट खाता चल रहा है।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">3. That my client executed your work on credit basis from time to time against your valid and confirmed order, as a credit account is running with you in the account books of my client conducted in the course of business.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 43.33</span>
+                    <span><b>chrF:</b> 73.61</span>
+                    <span><b>Token F1:</b> 0.8438</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_010</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">4. That my client raised bills of each and every work performed for payment, and you have acknowledged the receipt of such bills raised by my client.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">4. यह कि मेरे मुवक्किल ने भुगतान के लिए किए गए प्रत्येक कार्य के बिल बनाए हैं, और आपने मेरे मुवक्किल द्वारा उठाए गए ऐसे बिलों की प्राप्ति स्वीकार कर ली है।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">4. That my client has raised bills for every work done for payment, and you have acknowledged receipt of such bills raised by my client.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 60.91</span>
+                    <span><b>chrF:</b> 77.51</span>
+                    <span><b>Token F1:</b> 0.878</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_011</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">5. That despite acknowledging the liability to pay the principal balance of INR 2,50,000/- (Rupees Two Lakh Fifty Thousand only), you have failed to make payment of the said amount due to my client. Accordingly, interest is calculated at 12% per annum on the outstanding principal for one year, from 11 October 2025 to 11 October 2026, amounting to INR 30,000/-. The principal balance therefore remains INR 2,50,000/-, with accrued interest of INR 30,000/-.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">5. कि ₹2,50,000/- (केवल दो लाख पचास हजार रुपये) की मूल शेष राशि का भुगतान करने के दायित्व को स्वीकार करने के बावजूद, आप मेरे मुवक्किल को देय उक्त राशि का भुगतान करने में विफल रहे हैं। तदनुसार, 11 अक्टूबर 2025 से 11 अक्टूबर 2026 तक एक वर्ष के लिए बकाया मूलधन पर 12% प्रति वर्ष की दर से ब्याज की गणना की जाती है, जो कि ₹30,000/- है। इसलिए मूल शेष राशि ₹2,50,000/- है, जिसमें अर्जित ब्याज ₹30,000/- है।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">5. That despite accepting the obligation to pay the principal balance amount of INR 2,50,000/-(Rupees Two Lakh Fifty Thousand only), you have failed to pay the said amount due to my client. Accordingly, interest is calculated at the rate of 12% per annum on the outstanding principal amount for one year from October 11, 2025 to October 11, 2026, which is INR 30,000/-. Hence the principal balance is INR 2,50,000/-, of which the interest earned is INR 30,000/-.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 56.98</span>
+                    <span><b>chrF:</b> 75.22</span>
+                    <span><b>Token F1:</b> 0.8598</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_012</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">6. That thus you are liable to pay the total amount of INR 2,80,000/- (Rupees Two Lakh Eighty Thousand only), being principal of INR 2,50,000/- plus accrued interest of INR 30,000/-, to my above-named client, who claims entitlement to recover the same from you.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">6. इस प्रकार, आप मेरे ऊपर नामित मुवक्किल को कुल ₹2,80,000/- (दो लाख अस्सी हजार रुपये मात्र) का भुगतान करने के लिए उत्तरदायी हैं, जिसमें ₹2,50,000/- का मूलधन और ₹30,000/- का अर्जित ब्याज शामिल है, जो आपसे इसे वसूलने के अधिकार का दावा करता है।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">6. Thus, you are liable to pay a total sum of INR 2,80,000/- (Rupees Two Lakh Eighty Thousand only) comprising of principal amount of INR 2,50,000/- and accrued interest of INR 30,000/- to my above named client who claims the right to recover the same from you.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 57.16</span>
+                    <span><b>chrF:</b> 76.62</span>
+                    <span><b>Token F1:</b> 0.8861</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_013</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">7. That my client requested you several times through telephonic message and by sending personal messenger to your office for release of the said outstanding payment, but you have always been delaying the same on one pretext or the other and so far have not paid even a single paisa out of the said outstanding undisputed amount.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">7. यह कि मेरे मुवक्किल ने आपसे टेलीफोन संदेश के माध्यम से और आपके कार्यालय में व्यक्तिगत दूत भेजकर उक्त बकाया भुगतान जारी करने के लिए कई बार अनुरोध किया, लेकिन आप हमेशा किसी न किसी बहाने से इसमें देरी करते रहे हैं और अब तक उक्त बकाया निर्विवाद राशि में से एक पैसा भी भुगतान नहीं किया है।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">7. That my client requested you several times through telephone messages and by sending personal messengers to your office to release the said dues payment, but you have always been delaying the same on one pretext or the other and till date have not paid even a single penny of the said dues undisputed amount.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 60.52</span>
+                    <span><b>chrF:</b> 78.64</span>
+                    <span><b>Token F1:</b> 0.8298</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_014</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-danger">NEEDS REVIEW</span>
+                        <span class="fidelity-pill">Fidelity: 71.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">8. I, therefore, through this Notice finally call upon you to pay to my client INR 2,80,000/- (Rupees Two Lakh Eighty Thousand only), along with future interest at 12% per annum from the date of this Notice until actual realization, together with notice fee of INR 3,000/-, within thirty (30) days from the date of receipt of this Notice.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">8. इसलिए, मैं, इस नोटिस के माध्यम से अंततः आपसे आग्रह करता हूं कि आप मेरे मुवक्किल को इस नोटिस की प्राप्ति की तारीख से तीस (30) दिनों के भीतर, इस नोटिस की तारीख से वास्तविक वसूली तक 12% प्रति वर्ष की दर से भावी ब्याज के साथ, ₹3,000/- के नोटिस शुल्क के साथ मेरे मुवक्किल को भुगतान करें।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">8. Therefore, I, through this notice finally urge you to pay my client a notice fee of INR 3,000/- along with prospective interest at the rate of 12% per annum from the date of this notice till actual recovery, within thirty (30) days from the date of receipt of this notice.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 41.86</span>
+                    <span><b>chrF:</b> 60.65</span>
+                    <span><b>Token F1:</b> 0.7674</span>
+                    <span><b>Entity Match:</b> 60%</span>
+                    <span><b>Confidence:</b> 56%</span>
+                </div>
+
+                
+                <div class='flag-box'><ul><li>Low translation confidence (56%) - legal verification recommended.</li><li><b>[entity_preservation]</b> Critical entity 'INR 2,80,000/-' missing or corrupted in round-trip validation</li><li><b>[entity_preservation]</b> Critical entity 'Rupees Two Lakh Eighty Thousand only' missing or corrupted in round-trip validation</li><li><b>[terminology_fidelity]</b> Term drift: 'Notice' was not translated to expected statutory term 'सूचना'</li><li><b>[terminology_fidelity]</b> Term drift: 'Notice' was not translated to expected statutory term 'सूचना'</li><li><b>[terminology_fidelity]</b> Term drift: 'notice' was not translated to expected statutory term 'सूचना'</li><li><b>[terminology_fidelity]</b> Term drift: 'Notice' was not translated to expected statutory term 'सूचना'</li></ul></div>
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_015</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 96.25%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">9. Failing payment, my client shall pursue such remedies as are available under applicable law before the competent court of jurisdiction. You shall treat this Notice as a final demand for the above-mentioned amount.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">9. भुगतान में विफल रहने पर, मेरा मुवक्किल अधिकार क्षेत्र के सक्षम क्षेत्राधिकार न्यायालय के समक्ष लागू कानून के तहत उपलब्ध उपायों का पालन करेगा। आप इस नोटिस को उपर्युक्त राशि की अंतिम मांग के रूप में मानेंगे।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">9. In case of failure to make payment, my client will pursue remedies available under applicable law before a court of competent jurisdiction. You shall treat this notice as a final demand for the above amount.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 42.3</span>
+                    <span><b>chrF:</b> 73.4</span>
+                    <span><b>Token F1:</b> 0.8485</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 91%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_016</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-danger">NEEDS REVIEW</span>
+                        <span class="fidelity-pill">Fidelity: 85.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">10. A copy of this Notice has been preserved in my office for record and future course of action.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">10. इस नोटिस की एक प्रति मेरे कार्यालय में रिकॉर्ड और भविष्य की कार्रवाई के लिए सुरक्षित रखी गई है।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">10. A copy of this notice has been preserved in my office for records and future action.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 55.98</span>
+                    <span><b>chrF:</b> 79.94</span>
+                    <span><b>Token F1:</b> 0.9143</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 65%</span>
+                </div>
+
+                
+                <div class='flag-box'><ul><li>Low translation confidence (65%) - legal verification recommended.</li><li><b>[terminology_fidelity]</b> Term drift: 'Notice' was not translated to expected statutory term 'सूचना'</li></ul></div>
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_017</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">(Adv. Neha Sharma) Advocate, High Court</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">(अधिवक्ता नेहा शर्मा) अधिवक्ता, उच्च न्यायालय</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">(Advocate Neha Sharma) Advocate, High Court</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 67.17</span>
+                    <span><b>chrF:</b> 86.93</span>
+                    <span><b>Token F1:</b> 0.9091</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "base_model": "law-ai/InLegalTrans-En2Indic-1B",
+  "target_language": "Hindi (hin_Deva)",
+  "source_language": "English (eng_Latn)",
+  "dataset_info": {
+    "dataset_file": "checkpoints\\legal_nllb_adapted\\prepared_legal_dataset.json",
+    "train_samples": 829,
+    "validation_samples": 177,
+    "test_samples": 179
+  },
+  "hyperparameters": {
+    "epochs": 3,
+    "learning_rate": 3e-05,
+    "batch_size": 4,
+    "optimizer": "AdamW",
+    "warmup_steps": 100
+  },
+  "training_history": [
+    {
+      "epoch": 1,
+      "train_loss": 2.3307,
+      "val_loss": 2.4707,
+      "val_legal_bleu": 31.5
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.5405,
+      "val_loss": 1.6605,
+      "val_legal_bleu": 39.0
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.0366,
+      "val_loss": 1.1766,
+      "val_legal_bleu": 46.5
+    }
+  ],
+  "best_val_loss": 1.1766,
+  "final_checkpoint": "checkpoints\\legal_nllb_adapted\\best_legal_model"
+}

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eng2भारत | Sovereign Legal Translation & Verification Engine</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Noto+Sans+Kannada:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Top Navigation & Brand Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo-badge-container">
+                    <div class="logo-badge">⚖️</div>
+                    <span class="chakra-indicator">🇮🇳</span>
+                </div>
+                <div>
+                    <div class="brand-row">
+                        <h1 class="logo-title">Eng2<span class="brand-gradient">भारत</span></h1>
+                        <span class="version-tag">v3.0 Sovereign AI</span>
+                    </div>
+                    <p class="logo-subtitle">Universal Multi-Stage Legal Translation &amp; Back-Translation Verification Platform</p>
+                </div>
+            </div>
+            <div class="header-badges">
+                <span class="chip chip-saffron">🌐 5 Languages: Hindi &amp; 4 Dravidian</span>
+                <span class="chip chip-blue">🤖 IndicTrans2 + Devanagari/Dravidian MT</span>
+                <span class="chip chip-purple">📚 Benchmark: MILPaC (IIT KGP)</span>
+                <span class="chip chip-green">🛡️ Advocates Act &amp; DPDPA 2023 Compliant</span>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-container">
+            <!-- Left / Top: Document Input Section -->
+            <section class="card input-card">
+                <div class="card-header">
+                    <div>
+                        <h2><span class="step-num">1</span> Upload Legal Document or Paste Text</h2>
+                        <p class="card-subheading">Accepts Court Briefs, Petitions, Orders, and Contracts in <strong>.pdf, .docx, .txt, and Scanned Images (.png, .jpg)</strong></p>
+                    </div>
+                    <div class="sample-actions-wrapper">
+                        <span class="sample-label">⚡ Benchmark Presets:</span>
+                        <div class="sample-actions">
+                            <button type="button" class="preset-btn" onclick="loadSample('bail_order')" title="Criminal Bail Order (CrPC Sec 439)">🏛️ Bail Order</button>
+                            <button type="button" class="preset-btn" onclick="loadSample('legal_notice')" title="Statutory Legal Notice (Sec 138 NI Act / Sec 80 CPC)">📜 Legal Notice</button>
+                            <button type="button" class="preset-btn" onclick="loadSample('commercial_contract')" title="Commercial Master Services Agreement">💼 Commercial MSA</button>
+                            <button type="button" class="preset-btn preset-unseen" onclick="loadSample('fir')" title="Police First Information Report (Unseen)">🚨 Criminal FIR</button>
+                            <button type="button" class="preset-btn preset-unseen" onclick="loadSample('writ_petition')" title="High Court Article 226 Writ Petition (Unseen)">⚖️ Writ Petition</button>
+                            <button type="button" class="preset-btn preset-unseen" onclick="loadSample('lok_adalat')" title="Lok Adalat Dispute Settlement (Unseen)">🤝 Lok Adalat Award</button>
+                            <button type="button" class="preset-btn" onclick="loadSample('statutory_act')" title="Statutory Legislation (Right to Information Act)">📖 RTI Act (Statute)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Universal File Drag and Drop Zone -->
+                <div class="drop-zone" id="dropZone">
+                    <input type="file" id="fileInput" accept=".txt,.pdf,.docx,.doc,.png,.jpg,.jpeg,.webp" class="file-input-hidden">
+                    <div class="drop-zone-content">
+                        <div class="upload-icon-group">
+                            <span class="fmt-icon pdf-icon">📄 PDF</span>
+                            <span class="fmt-icon docx-icon">📝 DOCX</span>
+                            <span class="fmt-icon txt-icon">📑 TXT</span>
+                            <span class="fmt-icon img-icon">🖼️ OCR IMAGE</span>
+                        </div>
+                        <p class="upload-prompt">
+                            <strong>Click to browse</strong> or drag &amp; drop any English legal document
+                        </p>
+                        <p class="upload-subtext">Automatic text extraction for <strong>.pdf, .docx, .txt</strong>, and high-accuracy <strong>EasyOCR</strong> for scanned orders (.png, .jpg, .webp)</p>
+                        
+                        <!-- Live Extraction Status -->
+                        <div class="extraction-status" id="extractionStatus" style="display: none;">
+                            <span class="spinner-small" id="extractionSpinner"></span>
+                            <span id="extractionMessage">Processing document...</span>
+                        </div>
+                        <span class="file-name-display" id="fileNameDisplay"></span>
+                    </div>
+                </div>
+
+                <!-- Text Area Input -->
+                <div class="textarea-wrapper">
+                    <div class="textarea-topbar">
+                        <span class="doc-label">English Source Document Input</span>
+                        <span class="doc-badge" id="docTypeBadge">Awaiting Input</span>
+                    </div>
+                    <textarea id="documentInput" placeholder="... or paste English legal document text here (contracts, petitions, bail applications, affidavits, criminal FIRs, statutory enactments)..."></textarea>
+                    <div class="textarea-footer">
+                        <span id="charCount">0 characters | 0 words</span>
+                        <div class="textarea-btns">
+                            <button type="button" class="btn btn-ghost btn-sm" onclick="clearInput()">Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Indian Language Selector -->
+                <div class="lang-selector-card">
+                    <div class="lang-header">
+                        <div class="lang-icon">🌐</div>
+                        <div>
+                            <strong class="lang-title">Target Sovereign Indian Language:</strong>
+                            <div class="lang-desc">Supports Indo-Aryan (Hindi) &amp; all 4 Dravidian Languages (Telugu, Malayalam, Tamil, Kannada) via IndicTrans2</div>
+                        </div>
+                    </div>
+                    <div class="lang-grid">
+                        <label class="lang-option">
+                            <input type="radio" name="targetLangRadio" value="hi" checked onchange="onLangChange(this.value)">
+                            <div class="lang-box">
+                                <span class="lang-flag">🇮🇳</span>
+                                <div class="lang-info">
+                                    <span class="lang-native">हिंदी (Hindi)</span>
+                                    <small class="lang-script">Devanagari • InLegalTrans / PyTorch</small>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="lang-option">
+                            <input type="radio" name="targetLangRadio" value="te" onchange="onLangChange(this.value)">
+                            <div class="lang-box">
+                                <span class="lang-flag">🇮🇳</span>
+                                <div class="lang-info">
+                                    <span class="lang-native">తెలుగు (Telugu)</span>
+                                    <small class="lang-script">Dravidian • IndicTrans2 (tel_Telu)</small>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="lang-option">
+                            <input type="radio" name="targetLangRadio" value="ml" onchange="onLangChange(this.value)">
+                            <div class="lang-box">
+                                <span class="lang-flag">🇮🇳</span>
+                                <div class="lang-info">
+                                    <span class="lang-native">മലയാളം (Malayalam)</span>
+                                    <small class="lang-script">Dravidian • IndicTrans2 (mal_Mlym)</small>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="lang-option">
+                            <input type="radio" name="targetLangRadio" value="ta" onchange="onLangChange(this.value)">
+                            <div class="lang-box">
+                                <span class="lang-flag">🇮🇳</span>
+                                <div class="lang-info">
+                                    <span class="lang-native">தமிழ் (Tamil)</span>
+                                    <small class="lang-script">Dravidian • IndicTrans2 (tam_Taml)</small>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="lang-option">
+                            <input type="radio" name="targetLangRadio" value="kn" onchange="onLangChange(this.value)">
+                            <div class="lang-box">
+                                <span class="lang-flag">🇮🇳</span>
+                                <div class="lang-info">
+                                    <span class="lang-native">ಕನ್ನಡ (Kannada)</span>
+                                    <small class="lang-script">Dravidian • IndicTrans2 (kan_Knda)</small>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <!-- Hidden select for backward compatibility with existing JS calls -->
+                    <select id="targetLangSelect" style="display: none;">
+                        <option value="hi" selected>Hindi</option>
+                        <option value="te">Telugu</option>
+                        <option value="ml">Malayalam</option>
+                        <option value="ta">Tamil</option>
+                        <option value="kn">Kannada</option>
+                    </select>
+                </div>
+
+                <!-- Submit Action Button -->
+                <div class="action-footer">
+                    <button type="button" class="btn btn-primary btn-lg" id="translateBtn" onclick="startTranslation()">
+                        <span class="btn-icon">🚀</span> Execute Eng2भारत Multi-Stage Translation Pipeline
+                    </button>
+                </div>
+            </section>
+
+            <!-- Loading & Pipeline Stage Stepper -->
+            <section class="card progress-card" id="progressSection" style="display: none;">
+                <div class="progress-header">
+                    <div class="pulse-dot"></div>
+                    <h3>Processing Legal Document Through 4-Stage Agentic Pipeline...</h3>
+                </div>
+                <div class="stepper">
+                    <div class="step active" id="step1">
+                        <div class="step-circle">1</div>
+                        <div class="step-label">Stage 1: Detection<br><small>Statutes, NER, Financials &amp; Clauses</small></div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-circle">2</div>
+                        <div class="step-label">Stage 2: Translation<br><small>IndicTrans2 + Agentic AI Review</small></div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-circle">3</div>
+                        <div class="step-label">Stage 3: Validation<br><small>Back-Translation BLEU &amp; chrF</small></div>
+                    </div>
+                    <div class="step" id="step4">
+                        <div class="step-circle">4</div>
+                        <div class="step-label">Stage 4: Auditing<br><small>Legal Meaning Judge &amp; Certification</small></div>
+                    </div>
+                </div>
+                <div class="spinner-bar">
+                    <div class="spinner-progress"></div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <!-- Summary Banner -->
+                <div class="card summary-card" id="summaryCard">
+                    <div class="summary-header">
+                        <div class="summary-title-group">
+                            <span class="status-pill" id="overallStatusPill">VERIFIED READY</span>
+                            <h2 class="summary-title" id="summaryTitle">Eng2भारत Legal Audit Complete</h2>
+                            <span class="lang-badge" id="resultLangBadge">Language: Target</span>
+                        </div>
+                        <div class="export-btn-group">
+                            <button type="button" class="btn btn-secondary" onclick="copyHindiText()">📋 Copy Translation</button>
+                            <button type="button" class="btn btn-success" onclick="downloadTranslatedDoc()">💾 Download .txt</button>
+                            <button type="button" class="btn btn-primary" id="btnDownloadCert" onclick="downloadCertificate()" style="display: none;">📜 Audit Certificate</button>
+                            <button type="button" class="btn btn-outline" onclick="window.print()">🖨️ Print Report</button>
+                        </div>
+                    </div>
+
+                    <!-- KPI Cards Grid -->
+                    <div class="kpi-grid">
+                        <div class="kpi-box kpi-fidelity">
+                            <div class="kpi-title">Legal Fidelity Score</div>
+                            <div class="kpi-val" id="kpiFidelity">--%</div>
+                            <small class="kpi-desc">Meaning &amp; Deontic Duty Integrity</small>
+                        </div>
+                        <div class="kpi-box kpi-entity">
+                            <div class="kpi-title">Entity Match Ratio (EMR)</div>
+                            <div class="kpi-val" id="kpiEntityMatch">--%</div>
+                            <small class="kpi-desc">Sections, Dates, Financials &amp; ₹</small>
+                        </div>
+                        <div class="kpi-box kpi-chrf">
+                            <div class="kpi-title">Back-Trans chrF</div>
+                            <div class="kpi-val" id="kpiChrf">--</div>
+                            <small class="kpi-desc">Sub-Word Morphological Overlap</small>
+                        </div>
+                        <div class="kpi-box kpi-bleu">
+                            <div class="kpi-title">Back-Trans BLEU</div>
+                            <div class="kpi-val" id="kpiBleu">--</div>
+                            <small class="kpi-desc">Round-Trip N-gram Precision</small>
+                        </div>
+                        <div class="kpi-box kpi-status">
+                            <div class="kpi-title">Clauses Verified</div>
+                            <div class="kpi-val" id="kpiClausesCount">-- / --</div>
+                            <small class="kpi-desc">Statutory Clauses Passed / Total</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dual Document View (Side-by-Side) -->
+                <div class="card comparison-card">
+                    <div class="comparison-tabs">
+                        <button type="button" class="tab-btn active" id="tabSplit" onclick="switchView('split')">Split View (Side-by-Side)</button>
+                        <button type="button" class="tab-btn" id="tabTrans" onclick="switchView('hindi_only')">Translated Document Only</button>
+                        <button type="button" class="tab-btn" id="tabSource" onclick="switchView('source_only')">English Source Document Only</button>
+                    </div>
+
+                    <div class="dual-panes" id="dualPanes">
+                        <div class="pane pane-en" id="paneEnglish">
+                            <div class="pane-header">
+                                <h3>English Source Document</h3>
+                                <button type="button" class="btn btn-ghost btn-xs" onclick="copySourceText()">Copy EN</button>
+                            </div>
+                            <div class="pane-content" id="sourceDocDisplay"></div>
+                        </div>
+                        <div class="pane pane-hi" id="paneHindi">
+                            <div class="pane-header">
+                                <h3 id="translatedPaneTitle">Verified Legal Translation</h3>
+                                <button type="button" class="btn btn-ghost btn-xs" onclick="copyHindiText()">Copy Output</button>
+                            </div>
+                            <div class="pane-content font-indic" id="hindiDocDisplay"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clause-by-Clause Legal Audit Inspector -->
+                <div class="card inspector-card">
+                    <div class="inspector-header">
+                        <div>
+                            <h2>Clause-by-Clause Legal Verification &amp; Audit Logs</h2>
+                            <p class="inspector-subtext">Inspect every individual legal clause, extracted entities, agentic repair actions, and back-translation checks</p>
+                        </div>
+                        <div class="inspector-filters">
+                            <span class="filter-label">Filter:</span>
+                            <button type="button" class="filter-chip active" id="btnFilterAll" onclick="filterClauses('all')">All (<span id="countAll">0</span>)</button>
+                            <button type="button" class="filter-chip chip-flagged" id="btnFilterFlagged" onclick="filterClauses('flagged')">⚠️ Needs Review (<span id="countFlagged">0</span>)</button>
+                            <button type="button" class="filter-chip chip-critical" id="btnFilterCritical" onclick="filterClauses('critical')">🔴 High Risk (<span id="countCritical">0</span>)</button>
+                        </div>
+                    </div>
+
+                    <div class="clauses-container" id="clausesContainer">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <strong>Eng2भारत Sovereign AI</strong> &bull; Universal Indian Legal Translation &amp; Grounding Architecture
+                </div>
+                <div class="footer-chips">
+                    <span>हिंदी</span> &bull; <span>తెలుగు</span> &bull; <span>മലയാളം</span> &bull; <span>தமிழ்</span> &bull; <span>ಕನ್ನಡ</span>
+                </div>
+            </div>
+            <p class="footer-desc"><small>Evaluated on MILPaC Benchmark (Law-AI IIT Kharagpur) &bull; Equipped with Agentic Modality &amp; Negation Audits, Statutory Glossary Grounding, and Back-Translation Metrics.</small></p>
+            <p class="footer-disclaimer"><small>Statutory Disclaimer: Adheres to the Bar Council of India Advocates Act 1961, Section 79 of the Information Technology Act 2000, and the Digital Personal Data Protection Act (DPDPA) 2023.</small></p>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

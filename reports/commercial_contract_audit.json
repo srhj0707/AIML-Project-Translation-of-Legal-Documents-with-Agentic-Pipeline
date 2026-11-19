@@ -1,0 +1,1347 @@
+{
+  "overall_status": "REVIEW_REQUIRED",
+  "document_summary": {
+    "total_clauses": 26,
+    "flagged_clauses_count": 4,
+    "verified_clauses_count": 22,
+    "avg_back_trans_bleu": 82.77,
+    "avg_back_trans_chrf": 85.0,
+    "avg_entity_preservation_pct": 100.0,
+    "avg_legal_fidelity_score": 98.39
+  },
+  "translated_document_hindi": "MASTER SERVICES करार\n\nयह मास्टर सेवा करार (\\\"करार\\\") इस 15th day of November, 2023 को निम्नलिखित पक्षकारों के मध्य निष्पादित और प्रविष्ट किया गया है:\n\nALPHA LEGAL TECH PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Nariman Point, Mumbai - 400021 (hereinafter referred to as the \"Service Provider\", which expression करेगा include its successors and permitted assigns);\n\nAND\n\nBHARAT COMMERCIAL ENTERPRISES LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Connaught Place, New Delhi - 110001 (hereinafter referred to as the \"Client\", which expression करेगा include its successors and permitted assigns).\n\nचूंकि: A. The Service Provider is engaged in the business of providing enterprise software and legal analytics solutions. B. The Client desires to retain the Service Provider, and the Service Provider agrees to render such services on the terms and conditions set forth herein.\n\nअतएव अब, पक्षकार निम्नलिखित रूप से परस्पर सहमत होते हैं:\n\n1. DEFINITIONS AND INTERPRETATION\n\n1.1 \"Applicable Law\" करेगा mean any statute, law, regulation, ordinance, rule, judgment, order, डिक्री, or directive having the force of law in the Republic of India.\n\n1.2 \"Confidential Information\" करेगा mean all proprietary information disclosed by one Party to the other Party, whether orally or in writing.\n\n2. OBLIGATIONS OF THE SERVICE PROVIDER\n\n2.1 The Service Provider करेगा perform the Services with reasonable skill, care, and diligence in accordance with the specifications set forth in Schedule A.\n\n2.2 The Service Provider नहीं करेगा assign or sub-संविदा any of its obligations without the prior written consent of the Client.\n\n3. FEES AND PAYMENT TERMS\n\n3.1 The Client करेगा pay the Service Provider a total प्रतिफल of ₹15,00,000/- (Indian Rupees Fifteen Lakhs only) plus applicable Goods and Services Tax (GST) within thirty (30) days from the date of receipt of an undisputed invoice.\n\n3.2 Any delayed payment करेगा attract interest at the rate of 9% per annum from the due date until the date of actual payment.\n\n4. INDEMNIFICATION AND LIABILITY\n\n4.1 The Service Provider करेगा indemnify, defend, and hold harmless the Client, its directo₹, office₹, and employees against any third-party claims, liabilities, losses, damages, and expenses arising directly out of any willful misconduct or breach of गोपनीयता by the Service Provider. (rs,)\n\n4.2 In no event नहीं करेगा the total aggregate liability of either Party under this करार exceed ₹30,00,000/- (Indian Rupees Thirty Lakhs only).\n\n5. समाप्ति\n\n5.1 Either Party कर सकता है terminate this करार तत्काल by giving written सूचना of thirty (30) days in the event of a material breach by the other Party which remains uncured for fifteen (15) days after receipt of सूचना.\n\n5.2 Upon समाप्ति, the Client करेगा तत्काल pay all outstanding fees accrued up to the effective date of समाप्ति.\n\n6. शासी विधि AND विवाद समाधान\n\n6.1 यह करार भारत की विधियों द्वारा शासित और उनके अनुसार अर्थान्वित होगा।\n\n6.2 इस करार से उत्पन्न या इसके संबंध में होने वाले किसी भी विवाद को the Arbitration and Conciliation Act, 1996 के अनुसार मध्यस्थता के लिए संदर्भित किया जाएगा। मध्यस्थता का स्थान और विचार-स्थल New Delhi होगा, तथा कार्यवाही एकल मध्यस्थ के समक्ष अंग्रेजी भाषा में संचालित की जाएगी।\n\n6.3 The Courts at New Delhi करेगा have exclusive क्षेत्राधिकार over all matters arising hereunder.",
+  "clauses": [
+    {
+      "clause_id": "C_001",
+      "clause_marker": "",
+      "clause_type": "document_header",
+      "risk_level": "standard",
+      "source_en": "MASTER SERVICES AGREEMENT",
+      "draft_hi": "MASTER SERVICES करार",
+      "verified_hi": "MASTER SERVICES करार",
+      "back_translated_en": "MASTER SERVICES Agreement",
+      "agent_review": {
+        "verified_translation": "MASTER SERVICES करार",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 55.03,
+        "chrf": 60.7,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 85.68
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_002",
+      "clause_marker": "",
+      "clause_type": "document_header",
+      "risk_level": "standard",
+      "source_en": "This Master Services Agreement (\"Agreement\") is made and entered into on this 15th day of November, 2023, by and between:",
+      "draft_hi": "यह मास्टर सेवा करार (\\\"करार\\\") इस 15th day of November, 2023 को निम्नलिखित पक्षकारों के मध्य निष्पादित और प्रविष्ट किया गया है:",
+      "verified_hi": "यह मास्टर सेवा करार (\\\"करार\\\") इस 15th day of November, 2023 को निम्नलिखित पक्षकारों के मध्य निष्पादित और प्रविष्ट किया गया है:",
+      "back_translated_en": "यह मास्टर सेवा Agreement (\\\"Agreement\\\") इस 15th day of November, 2023 को निम्नलिखित पक्षकारों के मध्य निष्पादित और प्रविष्ट किया गया है:",
+      "agent_review": {
+        "verified_translation": "यह मास्टर सेवा करार (\\\"करार\\\") इस 15th day of November, 2023 को निम्नलिखित पक्षकारों के मध्य निष्पादित और प्रविष्ट किया गया है:",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 20.87,
+        "chrf": 34.29,
+        "token_f1": 0.2553,
+        "token_precision": 0.2,
+        "token_recall": 0.3529,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [
+          "15th day of November, 2023"
+        ],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 0.2242,
+        "composite_validation_score": 56.26
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": [
+        "15th day of November, 2023"
+      ]
+    },
+    {
+      "clause_id": "C_003",
+      "clause_marker": "",
+      "clause_type": "operative",
+      "risk_level": "elevated",
+      "source_en": "ALPHA LEGAL TECH PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Nariman Point, Mumbai - 400021 (hereinafter referred to as the \"Service Provider\", which expression shall include its successors and permitted assigns);",
+      "draft_hi": "ALPHA LEGAL TECH PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Nariman Point, Mumbai - 400021 (hereinafter referred to as the \"Service Provider\", which expression करेगा include its successors and permitted assigns);",
+      "verified_hi": "ALPHA LEGAL TECH PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Nariman Point, Mumbai - 400021 (hereinafter referred to as the \"Service Provider\", which expression करेगा include its successors and permitted assigns);",
+      "back_translated_en": "ALPHA LEGAL TECH PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Nariman Point, Mumbai - 400021 (hereinafter referred to as the \"Service Provider\", which expression shall include its successors and permitted assigns);",
+      "agent_review": {
+        "verified_translation": "ALPHA LEGAL TECH PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Nariman Point, Mumbai - 400021 (hereinafter referred to as the \"Service Provider\", which expression करेगा include its successors and permitted assigns);",
+        "confidence_score": 0.825,
+        "requires_human_review": true,
+        "human_review_flags": [
+          "Low translation confidence (82%) - human legal verification recommended."
+        ],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 0.5,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [
+          "Companies Act, 2013"
+        ],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 92.5,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 50.0,
+          "completeness": 100.0
+        },
+        "violations": [
+          {
+            "dimension": "terminology_fidelity",
+            "severity": "low",
+            "details": "Term drift: 'Companies Act' was not translated to expected statutory term 'कंपनी अधिनियम'"
+          }
+        ],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": true,
+      "critical_entities": [
+        "Companies Act, 2013"
+      ]
+    },
+    {
+      "clause_id": "C_004",
+      "clause_marker": "",
+      "clause_type": "operative",
+      "risk_level": "standard",
+      "source_en": "AND",
+      "draft_hi": "AND",
+      "verified_hi": "AND",
+      "back_translated_en": "AND",
+      "agent_review": {
+        "verified_translation": "AND",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_005",
+      "clause_marker": "",
+      "clause_type": "operative",
+      "risk_level": "elevated",
+      "source_en": "BHARAT COMMERCIAL ENTERPRISES LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Connaught Place, New Delhi - 110001 (hereinafter referred to as the \"Client\", which expression shall include its successors and permitted assigns).",
+      "draft_hi": "BHARAT COMMERCIAL ENTERPRISES LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Connaught Place, New Delhi - 110001 (hereinafter referred to as the \"Client\", which expression करेगा include its successors and permitted assigns).",
+      "verified_hi": "BHARAT COMMERCIAL ENTERPRISES LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Connaught Place, New Delhi - 110001 (hereinafter referred to as the \"Client\", which expression करेगा include its successors and permitted assigns).",
+      "back_translated_en": "BHARAT COMMERCIAL ENTERPRISES LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Connaught Place, New Delhi - 110001 (hereinafter referred to as the \"Client\", which expression shall include its successors and permitted assigns).",
+      "agent_review": {
+        "verified_translation": "BHARAT COMMERCIAL ENTERPRISES LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Connaught Place, New Delhi - 110001 (hereinafter referred to as the \"Client\", which expression करेगा include its successors and permitted assigns).",
+        "confidence_score": 0.825,
+        "requires_human_review": true,
+        "human_review_flags": [
+          "Low translation confidence (82%) - human legal verification recommended."
+        ],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 0.5,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [
+          "Companies Act, 2013"
+        ],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 92.5,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 50.0,
+          "completeness": 100.0
+        },
+        "violations": [
+          {
+            "dimension": "terminology_fidelity",
+            "severity": "low",
+            "details": "Term drift: 'Companies Act' was not translated to expected statutory term 'कंपनी अधिनियम'"
+          }
+        ],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": true,
+      "critical_entities": [
+        "Companies Act, 2013"
+      ]
+    },
+    {
+      "clause_id": "C_006",
+      "clause_marker": "WHEREAS:",
+      "clause_type": "recital",
+      "risk_level": "standard",
+      "source_en": "WHEREAS: A. The Service Provider is engaged in the business of providing enterprise software and legal analytics solutions. B. The Client desires to retain the Service Provider, and the Service Provider agrees to render such services on the terms and conditions set forth herein.",
+      "draft_hi": "चूंकि: A. The Service Provider is engaged in the business of providing enterprise software and legal analytics solutions. B. The Client desires to retain the Service Provider, and the Service Provider agrees to render such services on the terms and conditions set forth herein.",
+      "verified_hi": "चूंकि: A. The Service Provider is engaged in the business of providing enterprise software and legal analytics solutions. B. The Client desires to retain the Service Provider, and the Service Provider agrees to render such services on the terms and conditions set forth herein.",
+      "back_translated_en": "Whereas: A. The Service Provider is engaged in the business of providing enterprise software and legal analytics solutions. B. The Client desires to retain the Service Provider, and the Service Provider agrees to render such services on the terms and conditions set forth herein.",
+      "agent_review": {
+        "verified_translation": "चूंकि: A. The Service Provider is engaged in the business of providing enterprise software and legal analytics solutions. B. The Client desires to retain the Service Provider, and the Service Provider agrees to render such services on the terms and conditions set forth herein.",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 97.94,
+        "chrf": 97.07,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 99.06
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_007",
+      "clause_marker": "NOW, THEREFORE",
+      "clause_type": "transition_recital",
+      "risk_level": "standard",
+      "source_en": "NOW, THEREFORE, the Parties agree as follows:",
+      "draft_hi": "अतएव अब, पक्षकार निम्नलिखित रूप से परस्पर सहमत होते हैं:",
+      "verified_hi": "अतएव अब, पक्षकार निम्नलिखित रूप से परस्पर सहमत होते हैं:",
+      "back_translated_en": "NOW, THEREFORE, the Parties agree as follows:",
+      "agent_review": {
+        "verified_translation": "अतएव अब, पक्षकार निम्नलिखित रूप से परस्पर सहमत होते हैं:",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_008",
+      "clause_marker": "",
+      "clause_type": "definitions",
+      "risk_level": "standard",
+      "source_en": "1. DEFINITIONS AND INTERPRETATION",
+      "draft_hi": "1. DEFINITIONS AND INTERPRETATION",
+      "verified_hi": "1. DEFINITIONS AND INTERPRETATION",
+      "back_translated_en": "1. DEFINITIONS AND INTERPRETATION",
+      "agent_review": {
+        "verified_translation": "1. DEFINITIONS AND INTERPRETATION",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_009",
+      "clause_marker": "1.1",
+      "clause_type": "judicial_heading",
+      "risk_level": "elevated",
+      "source_en": "1.1 \"Applicable Law\" shall mean any statute, law, regulation, ordinance, rule, judgment, order, decree, or directive having the force of law in the Republic of India.",
+      "draft_hi": "1.1 \"Applicable Law\" करेगा mean any statute, law, regulation, ordinance, rule, judgment, order, डिक्री, or directive having the force of law in the Republic of India.",
+      "verified_hi": "1.1 \"Applicable Law\" करेगा mean any statute, law, regulation, ordinance, rule, judgment, order, डिक्री, or directive having the force of law in the Republic of India.",
+      "back_translated_en": "1.1 \"Applicable Law\" shall mean any statute, law, regulation, ordinance, rule, judgment, order, Decree, or directive having the force of law in the Republic of India.",
+      "agent_review": {
+        "verified_translation": "1.1 \"Applicable Law\" करेगा mean any statute, law, regulation, ordinance, rule, judgment, order, डिक्री, or directive having the force of law in the Republic of India.",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 92.79,
+        "chrf": 97.46,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 98.64
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_010",
+      "clause_marker": "1.2",
+      "clause_type": "operative",
+      "risk_level": "elevated",
+      "source_en": "1.2 \"Confidential Information\" shall mean all proprietary information disclosed by one Party to the other Party, whether orally or in writing.",
+      "draft_hi": "1.2 \"Confidential Information\" करेगा mean all proprietary information disclosed by one Party to the other Party, whether orally or in writing.",
+      "verified_hi": "1.2 \"Confidential Information\" करेगा mean all proprietary information disclosed by one Party to the other Party, whether orally or in writing.",
+      "back_translated_en": "1.2 \"Confidential Information\" shall mean all proprietary information disclosed by one Party to the other Party, whether orally or in writing.",
+      "agent_review": {
+        "verified_translation": "1.2 \"Confidential Information\" करेगा mean all proprietary information disclosed by one Party to the other Party, whether orally or in writing.",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_011",
+      "clause_marker": "",
+      "clause_type": "operative",
+      "risk_level": "standard",
+      "source_en": "2. OBLIGATIONS OF THE SERVICE PROVIDER",
+      "draft_hi": "2. OBLIGATIONS OF THE SERVICE PROVIDER",
+      "verified_hi": "2. OBLIGATIONS OF THE SERVICE PROVIDER",
+      "back_translated_en": "2. OBLIGATIONS OF THE SERVICE PROVIDER",
+      "agent_review": {
+        "verified_translation": "2. OBLIGATIONS OF THE SERVICE PROVIDER",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_012",
+      "clause_marker": "2.1",
+      "clause_type": "operative",
+      "risk_level": "elevated",
+      "source_en": "2.1 The Service Provider shall perform the Services with reasonable skill, care, and diligence in accordance with the specifications set forth in Schedule A.",
+      "draft_hi": "2.1 The Service Provider करेगा perform the Services with reasonable skill, care, and diligence in accordance with the specifications set forth in Schedule A.",
+      "verified_hi": "2.1 The Service Provider करेगा perform the Services with reasonable skill, care, and diligence in accordance with the specifications set forth in Schedule A.",
+      "back_translated_en": "2.1 The Service Provider shall perform the Services with reasonable skill, care, and diligence in accordance with the specifications set forth in Schedule A.",
+      "agent_review": {
+        "verified_translation": "2.1 The Service Provider करेगा perform the Services with reasonable skill, care, and diligence in accordance with the specifications set forth in Schedule A.",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_013",
+      "clause_marker": "2.2",
+      "clause_type": "operative",
+      "risk_level": "critical",
+      "source_en": "2.2 The Service Provider shall not assign or sub-contract any of its obligations without the prior written consent of the Client.",
+      "draft_hi": "2.2 The Service Provider नहीं करेगा assign or sub-संविदा any of its obligations without the prior written consent of the Client.",
+      "verified_hi": "2.2 The Service Provider नहीं करेगा assign or sub-संविदा any of its obligations without the prior written consent of the Client.",
+      "back_translated_en": "2.2 The Service Provider shall not assign or sub-Contract any of its obligations without the prior written consent of the Client.",
+      "agent_review": {
+        "verified_translation": "2.2 The Service Provider नहीं करेगा assign or sub-संविदा any of its obligations without the prior written consent of the Client.",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 87.25,
+        "chrf": 96.69,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 97.9
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_014",
+      "clause_marker": "",
+      "clause_type": "operative",
+      "risk_level": "standard",
+      "source_en": "3. FEES AND PAYMENT TERMS",
+      "draft_hi": "3. FEES AND PAYMENT TERMS",
+      "verified_hi": "3. FEES AND PAYMENT TERMS",
+      "back_translated_en": "3. FEES AND PAYMENT TERMS",
+      "agent_review": {
+        "verified_translation": "3. FEES AND PAYMENT TERMS",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_015",
+      "clause_marker": "3.1",
+      "clause_type": "operative",
+      "risk_level": "elevated",
+      "source_en": "3.1 The Client shall pay the Service Provider a total consideration of INR 15,00,000/- (Indian Rupees Fifteen Lakhs only) plus applicable Goods and Services Tax (GST) within thirty (30) days from the date of receipt of an undisputed invoice.",
+      "draft_hi": "3.1 The Client करेगा pay the Service Provider a total प्रतिफल of ₹15,00,000/- (Indian Rupees Fifteen Lakhs only) plus applicable Goods and Services Tax (GST) within thirty (30) days from the date of receipt of an undisputed invoice.",
+      "verified_hi": "3.1 The Client करेगा pay the Service Provider a total प्रतिफल of ₹15,00,000/- (Indian Rupees Fifteen Lakhs only) plus applicable Goods and Services Tax (GST) within thirty (30) days from the date of receipt of an undisputed invoice.",
+      "back_translated_en": "3.1 The Client shall pay the Service Provider a total Consideration of INR 15,00,000/- (Indian Rupees Fifteen Lakhs only) plus applicable Goods and Services Tax (GST) within thirty (30) days from the date of receipt of an undisputed invoice.",
+      "agent_review": {
+        "verified_translation": "3.1 The Client करेगा pay the Service Provider a total प्रतिफल of ₹15,00,000/- (Indian Rupees Fifteen Lakhs only) plus applicable Goods and Services Tax (GST) within thirty (30) days from the date of receipt of an undisputed invoice.",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 94.53,
+        "chrf": 98.25,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [
+          "INR 15,00,000/-",
+          "Indian Rupees Fifteen Lakhs only",
+          "thirty (30) days"
+        ],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 99.02
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": [
+        "INR 15,00,000/-",
+        "Indian Rupees Fifteen Lakhs only",
+        "thirty (30) days"
+      ]
+    },
+    {
+      "clause_id": "C_016",
+      "clause_marker": "3.2",
+      "clause_type": "operative",
+      "risk_level": "elevated",
+      "source_en": "3.2 Any delayed payment shall attract interest at the rate of 9% per annum from the due date until the date of actual payment.",
+      "draft_hi": "3.2 Any delayed payment करेगा attract interest at the rate of 9% per annum from the due date until the date of actual payment.",
+      "verified_hi": "3.2 Any delayed payment करेगा attract interest at the rate of 9% per annum from the due date until the date of actual payment.",
+      "back_translated_en": "3.2 Any delayed payment shall attract interest at the rate of 9% per annum from the due date until the date of actual payment.",
+      "agent_review": {
+        "verified_translation": "3.2 Any delayed payment करेगा attract interest at the rate of 9% per annum from the due date until the date of actual payment.",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [
+          "9% per annum"
+        ],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": [
+        "9% per annum"
+      ]
+    },
+    {
+      "clause_id": "C_017",
+      "clause_marker": "",
+      "clause_type": "indemnity",
+      "risk_level": "standard",
+      "source_en": "4. INDEMNIFICATION AND LIABILITY",
+      "draft_hi": "4. INDEMNIFICATION AND LIABILITY",
+      "verified_hi": "4. INDEMNIFICATION AND LIABILITY",
+      "back_translated_en": "4. INDEMNIFICATION AND LIABILITY",
+      "agent_review": {
+        "verified_translation": "4. INDEMNIFICATION AND LIABILITY",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_018",
+      "clause_marker": "4.1",
+      "clause_type": "indemnity",
+      "risk_level": "elevated",
+      "source_en": "4.1 The Service Provider shall indemnify, defend, and hold harmless the Client, its directors, officers, and employees against any third-party claims, liabilities, losses, damages, and expenses arising directly out of any willful misconduct or breach of confidentiality by the Service Provider.",
+      "draft_hi": "4.1 The Service Provider करेगा indemnify, defend, and hold harmless the Client, its directo₹, office₹, and employees against any third-party claims, liabilities, losses, damages, and expenses arising directly out of any willful misconduct or breach of गोपनीयता by the Service Provider.",
+      "verified_hi": "4.1 The Service Provider करेगा indemnify, defend, and hold harmless the Client, its directo₹, office₹, and employees against any third-party claims, liabilities, losses, damages, and expenses arising directly out of any willful misconduct or breach of गोपनीयता by the Service Provider. (rs,)",
+      "back_translated_en": "4.1 The Service Provider shall indemnify, defend, and hold harmless the Client, its directoINR , officeINR , and employees against any third-party claims, liabilities, losses, damages, and expenses arising directly out of any willful misconduct or breach of Confidentiality by the Service Provider. (rs,)",
+      "agent_review": {
+        "verified_translation": "4.1 The Service Provider करेगा indemnify, defend, and hold harmless the Client, its directo₹, office₹, and employees against any third-party claims, liabilities, losses, damages, and expenses arising directly out of any willful misconduct or breach of गोपनीयता by the Service Provider. (rs,)",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [
+          {
+            "action": "RESTORE_ENTITY",
+            "details": "Restored critical entity 'rs,' into translation"
+          }
+        ],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 1,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 79.63,
+        "chrf": 94.82,
+        "token_f1": 0.9296,
+        "token_precision": 0.9167,
+        "token_recall": 0.9429,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [
+          "rs,"
+        ],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 0.9607,
+        "composite_validation_score": 95.69
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": [
+        "rs,"
+      ]
+    },
+    {
+      "clause_id": "C_019",
+      "clause_marker": "4.2",
+      "clause_type": "operative",
+      "risk_level": "elevated",
+      "source_en": "4.2 In no event shall the total aggregate liability of either Party under this Agreement exceed INR 30,00,000/- (Indian Rupees Thirty Lakhs only).",
+      "draft_hi": "4.2 In no event करेगा the total aggregate liability of either Party under this करार exceed ₹30,00,000/- (Indian Rupees Thirty Lakhs only).",
+      "verified_hi": "4.2 In no event नहीं करेगा the total aggregate liability of either Party under this करार exceed ₹30,00,000/- (Indian Rupees Thirty Lakhs only).",
+      "back_translated_en": "4.2 In no event shall not the total aggregate liability of either Party under this Agreement exceed INR 30,00,000/- (Indian Rupees Thirty Lakhs only).",
+      "agent_review": {
+        "verified_translation": "4.2 In no event नहीं करेगा the total aggregate liability of either Party under this करार exceed ₹30,00,000/- (Indian Rupees Thirty Lakhs only).",
+        "confidence_score": 0.85,
+        "requires_human_review": true,
+        "human_review_flags": [
+          "CRITICAL: English source contains strict legal negation/prohibition, but no negation was detected in Hindi translation!"
+        ],
+        "audit_log": [
+          {
+            "action": "FLAG_CRITICAL_LEGAL_RISK",
+            "details": "CRITICAL: English source contains strict legal negation/prohibition, but no negation was detected in Hindi translation!"
+          }
+        ],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 90.62,
+        "chrf": 97.44,
+        "token_f1": 0.9811,
+        "token_precision": 0.963,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [
+          "INR 30,00,000/-",
+          "Indian Rupees Thirty Lakhs only"
+        ],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 0.9813,
+        "composite_validation_score": 97.95
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": true,
+      "critical_entities": [
+        "INR 30,00,000/-",
+        "Indian Rupees Thirty Lakhs only"
+      ]
+    },
+    {
+      "clause_id": "C_020",
+      "clause_marker": "",
+      "clause_type": "termination",
+      "risk_level": "standard",
+      "source_en": "5. TERMINATION",
+      "draft_hi": "5. समाप्ति",
+      "verified_hi": "5. समाप्ति",
+      "back_translated_en": "5. Termination",
+      "agent_review": {
+        "verified_translation": "5. समाप्ति",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 55.03,
+        "chrf": 8.14,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 72.54
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_021",
+      "clause_marker": "5.1",
+      "clause_type": "termination",
+      "risk_level": "elevated",
+      "source_en": "5.1 Either Party may terminate this Agreement forthwith by giving written notice of thirty (30) days in the event of a material breach by the other Party which remains uncured for fifteen (15) days after receipt of notice.",
+      "draft_hi": "5.1 Either Party कर सकता है terminate this करार तत्काल by giving written सूचना of thirty (30) days in the event of a material breach by the other Party which remains uncured for fifteen (15) days after receipt of सूचना.",
+      "verified_hi": "5.1 Either Party कर सकता है terminate this करार तत्काल by giving written सूचना of thirty (30) days in the event of a material breach by the other Party which remains uncured for fifteen (15) days after receipt of सूचना.",
+      "back_translated_en": "5.1 Either Party may terminate this Agreement forthwith by giving written Notice of thirty (30) days in the event of a material breach by the other Party which remains uncured for fifteen (15) days after receipt of Notice.",
+      "agent_review": {
+        "verified_translation": "5.1 Either Party कर सकता है terminate this करार तत्काल by giving written सूचना of thirty (30) days in the event of a material breach by the other Party which remains uncured for fifteen (15) days after receipt of सूचना.",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 89.58,
+        "chrf": 96.15,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [
+          "fifteen (15) days",
+          "thirty (30) days"
+        ],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 98.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 75.0,
+        "verdict": "FAILED_CRITICAL_DISCREPANCY",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 0.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [
+          {
+            "dimension": "negation_fidelity",
+            "severity": "critical",
+            "details": "CRITICAL: Negation or prohibition present in English source was lost in translation!"
+          }
+        ],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": true,
+      "critical_entities": [
+        "fifteen (15) days",
+        "thirty (30) days"
+      ]
+    },
+    {
+      "clause_id": "C_022",
+      "clause_marker": "5.2",
+      "clause_type": "termination",
+      "risk_level": "elevated",
+      "source_en": "5.2 Upon termination, the Client shall forthwith pay all outstanding fees accrued up to the effective date of termination.",
+      "draft_hi": "5.2 Upon समाप्ति, the Client करेगा तत्काल pay all outstanding fees accrued up to the effective date of समाप्ति.",
+      "verified_hi": "5.2 Upon समाप्ति, the Client करेगा तत्काल pay all outstanding fees accrued up to the effective date of समाप्ति.",
+      "back_translated_en": "5.2 Upon Termination, the Client shall forthwith pay all outstanding fees accrued up to the effective date of Termination.",
+      "agent_review": {
+        "verified_translation": "5.2 Upon समाप्ति, the Client करेगा तत्काल pay all outstanding fees accrued up to the effective date of समाप्ति.",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 78.78,
+        "chrf": 93.04,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 96.14
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_023",
+      "clause_marker": "",
+      "clause_type": "dispute_resolution",
+      "risk_level": "standard",
+      "source_en": "6. GOVERNING LAW AND DISPUTE RESOLUTION",
+      "draft_hi": "6. शासी विधि AND विवाद समाधान",
+      "verified_hi": "6. शासी विधि AND विवाद समाधान",
+      "back_translated_en": "6. Governing Law AND Dispute Resolution",
+      "agent_review": {
+        "verified_translation": "6. शासी विधि AND विवाद समाधान",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 14.54,
+        "chrf": 9.04,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 68.71
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_024",
+      "clause_marker": "6.1",
+      "clause_type": "operative",
+      "risk_level": "elevated",
+      "source_en": "6.1 This Agreement shall be governed by and construed in accordance with the laws of India.",
+      "draft_hi": "6.1 यह करार भारत की विधियों द्वारा शासित और उनके अनुसार अर्थान्वित होगा।",
+      "verified_hi": "6.1 यह करार भारत की विधियों द्वारा शासित और उनके अनुसार अर्थान्वित होगा।",
+      "back_translated_en": "6.1 This Agreement shall be governed by and construed in accordance with the laws of India.",
+      "agent_review": {
+        "verified_translation": "6.1 यह करार भारत की विधियों द्वारा शासित और उनके अनुसार अर्थान्वित होगा।",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 100.0,
+        "chrf": 100.0,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 100.0
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    },
+    {
+      "clause_id": "C_025",
+      "clause_marker": "6.2",
+      "clause_type": "dispute_resolution",
+      "risk_level": "elevated",
+      "source_en": "6.2 Any dispute arising out of or in connection with this Agreement shall be referred to arbitration in accordance with the Arbitration and Conciliation Act, 1996. The seat and venue of arbitration shall be New Delhi, and the proceedings shall be conducted in the English language before a Sole Arbitrator.",
+      "draft_hi": "6.2 इस करार से उत्पन्न या इसके संबंध में होने वाले किसी भी विवाद को the Arbitration and Conciliation Act, 1996 के अनुसार मध्यस्थता के लिए संदर्भित किया जाएगा। मध्यस्थता का स्थान और विचार-स्थल New Delhi होगा, तथा कार्यवाही एकल मध्यस्थ के समक्ष अंग्रेजी भाषा में संचालित की जाएगी।",
+      "verified_hi": "6.2 इस करार से उत्पन्न या इसके संबंध में होने वाले किसी भी विवाद को the Arbitration and Conciliation Act, 1996 के अनुसार मध्यस्थता के लिए संदर्भित किया जाएगा। मध्यस्थता का स्थान और विचार-स्थल New Delhi होगा, तथा कार्यवाही एकल मध्यस्थ के समक्ष अंग्रेजी भाषा में संचालित की जाएगी।",
+      "back_translated_en": "6.2 इस Agreement से उत्पन्न या इसके संबंध में होने वाले किसी भी विवाद को the Arbitration and Conciliation Act, 1996 के अनुसार Arbitration के लिए संदर्भित किया जाएगा। Arbitration का स्थान और विचार-स्थल New Delhi shall be, तथा कार्यवाही Sole Arbitrator के समक्ष अंग्रेजी भाषा में संचालित की जाएगी।",
+      "agent_review": {
+        "verified_translation": "6.2 इस करार से उत्पन्न या इसके संबंध में होने वाले किसी भी विवाद को the Arbitration and Conciliation Act, 1996 के अनुसार मध्यस्थता के लिए संदर्भित किया जाएगा। मध्यस्थता का स्थान और विचार-स्थल New Delhi होगा, तथा कार्यवाही एकल मध्यस्थ के समक्ष अंग्रेजी भाषा में संचालित की जाएगी।",
+        "confidence_score": 0.9563,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 0.875,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 13.96,
+        "chrf": 31.41,
+        "token_f1": 0.3571,
+        "token_precision": 0.3125,
+        "token_recall": 0.4167,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [
+          "Arbitration and Conciliation Act, 1996"
+        ],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 0.1935,
+        "composite_validation_score": 54.09
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 98.12,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 87.5,
+          "completeness": 100.0
+        },
+        "violations": [
+          {
+            "dimension": "terminology_fidelity",
+            "severity": "low",
+            "details": "Term drift: 'Arbitration and Conciliation Act' was not translated to expected statutory term 'मध्यस्थता एवं सुलह अधिनियम'"
+          }
+        ],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": [
+        "Arbitration and Conciliation Act, 1996"
+      ]
+    },
+    {
+      "clause_id": "C_026",
+      "clause_marker": "6.3",
+      "clause_type": "operative",
+      "risk_level": "elevated",
+      "source_en": "6.3 The Courts at New Delhi shall have exclusive jurisdiction over all matters arising hereunder.",
+      "draft_hi": "6.3 The Courts at New Delhi करेगा have exclusive क्षेत्राधिकार over all matters arising hereunder.",
+      "verified_hi": "6.3 The Courts at New Delhi करेगा have exclusive क्षेत्राधिकार over all matters arising hereunder.",
+      "back_translated_en": "6.3 The Courts at New Delhi shall have exclusive Jurisdiction over all matters arising hereunder.",
+      "agent_review": {
+        "verified_translation": "6.3 The Courts at New Delhi करेगा have exclusive क्षेत्राधिकार over all matters arising hereunder.",
+        "confidence_score": 1.0,
+        "requires_human_review": false,
+        "human_review_flags": [],
+        "audit_log": [],
+        "entity_preservation_score": 1.0,
+        "terminology_score": 1.0,
+        "entity_repairs_count": 0,
+        "terminology_repairs_count": 0
+      },
+      "metrics": {
+        "bleu": 81.54,
+        "chrf": 95.61,
+        "token_f1": 1.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "entity_exact_match_ratio": 1.0,
+        "preserved_entities": [],
+        "missing_entities": [],
+        "semantic_cosine_similarity": 1.0,
+        "composite_validation_score": 97.06
+      },
+      "judge_evaluation": {
+        "overall_fidelity_score": 100.0,
+        "verdict": "PASSED",
+        "dimension_scores": {
+          "entity_preservation": 100.0,
+          "negation_fidelity": 100.0,
+          "modality_consistency": 100.0,
+          "terminology_fidelity": 100.0,
+          "completeness": 100.0
+        },
+        "violations": [],
+        "judge_type": "deterministic_legal_rubric"
+      },
+      "requires_human_review": false,
+      "critical_entities": []
+    }
+  ]
+}

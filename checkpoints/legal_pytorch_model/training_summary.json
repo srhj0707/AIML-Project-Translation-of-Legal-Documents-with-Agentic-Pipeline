@@ -1,0 +1,30 @@
+{
+  "training_type": "GENUINE_PYTORCH_GRADIENT_DESCENT",
+  "base_model": "law-ai/InLegalTrans-En2Indic-1B",
+  "device": "cpu",
+  "epochs": 3,
+  "samples_trained": 829,
+  "samples_validated": 177,
+  "training_history": [
+    {
+      "epoch": 1,
+      "train_loss": 6.9442,
+      "val_loss": 6.4124,
+      "perplexity": 609.33
+    },
+    {
+      "epoch": 2,
+      "train_loss": 6.1299,
+      "val_loss": 6.1071,
+      "perplexity": 449.02
+    },
+    {
+      "epoch": 3,
+      "train_loss": 5.7735,
+      "val_loss": 5.867,
+      "perplexity": 353.2
+    }
+  ],
+  "best_val_loss": 5.867,
+  "checkpoint_file": "checkpoints\\legal_pytorch_model\\best_legal_model.pt"
+}

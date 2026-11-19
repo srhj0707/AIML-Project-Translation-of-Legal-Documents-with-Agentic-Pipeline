@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legal Translation Audit Dashboard</title>
+<style>
+    :root {
+        --primary: #1e3a8a;
+        --primary-light: #3b82f6;
+        --success: #15803d;
+        --warning: #b45309;
+        --danger: #b91c1c;
+        --bg: #f8fafc;
+        --card-bg: #ffffff;
+        --border: #e2e8f0;
+        --text: #0f172a;
+        --text-muted: #64748b;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 24px;
+        line-height: 1.5;
+    }
+    .container {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+    header {
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        color: white;
+        padding: 28px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    header h1 { margin: 0 0 8px 0; font-size: 26px; }
+    header p { margin: 0; opacity: 0.9; }
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+    .kpi-card {
+        background: var(--card-bg);
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .kpi-card h3 {
+        margin: 0 0 6px 0;
+        font-size: 13px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .kpi-card .value {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--primary);
+    }
+    .clause-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .clause-card.risk-critical { border-left: 6px solid var(--danger); }
+    .clause-card.risk-elevated { border-left: 6px solid var(--warning); }
+    .clause-card.risk-standard { border-left: 6px solid var(--primary-light); }
+    .clause-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 12px;
+        margin-bottom: 16px;
+    }
+    .clause-id { font-weight: 800; font-size: 16px; margin-right: 8px; }
+    .clause-type { color: var(--text-muted); font-size: 13px; margin-right: 8px; }
+    .risk-badge {
+        font-size: 11px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+    }
+    .risk-badge.risk-critical { background: #fee2e2; color: #991b1b; }
+    .risk-badge.risk-elevated { background: #fef3c7; color: #92400e; }
+    .risk-badge.risk-standard { background: #e0f2fe; color: #075985; }
+    .badge {
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+    .badge-success { background: #dcfce7; color: #166534; }
+    .badge-danger { background: #fee2e2; color: #991b1b; }
+    .fidelity-pill {
+        background: #f1f5f9;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-left: 8px;
+    }
+    .clause-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+    @media (max-width: 900px) {
+        .clause-grid { grid-template-columns: 1fr; }
+    }
+    .col-box {
+        background: #f8fafc;
+        padding: 12px 14px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+    }
+    .col-box label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 6px;
+    }
+    .text-source { color: #1e293b; font-size: 14px; margin: 0; }
+    .text-hindi { color: #0f172a; font-size: 15px; font-weight: 500; margin: 0; line-height: 1.6; }
+    .text-back { color: #334155; font-size: 14px; margin: 0; }
+    .metrics-row {
+        display: flex;
+        gap: 16px;
+        font-size: 13px;
+        background: #f1f5f9;
+        padding: 8px 14px;
+        border-radius: 6px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+    }
+    .repairs-box {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 6px;
+        padding: 10px 14px;
+        margin-bottom: 10px;
+        font-size: 13px;
+    }
+    .repairs-box ul { margin: 4px 0 0 0; padding-left: 20px; }
+    .action-pill {
+        background: #dbeafe;
+        color: #1e40af;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+    .flag-box {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: #991b1b;
+    }
+    .flag-box ul { margin: 4px 0 0 0; padding-left: 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Legal Translation Audit Dashboard</h1>
+        <p>Agentic AI + NLP Legal Document Translation Pipeline | English to Hindi with Back-Translation Validation</p>
+    </header>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <h3>Overall Status</h3>
+            <div class="value" style="font-size: 20px; color: #b45309;">HUMAN REVIEW REQUIRED</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Total Clauses</h3>
+            <div class="value">26</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Human Review Flags</h3>
+            <div class="value" style="color: #b91c1c;">4</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Legal Fidelity</h3>
+            <div class="value">98.39%</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Entity Exact Match</h3>
+            <div class="value">100.0%</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Back-Trans chrF</h3>
+            <div class="value">85.0</div>
+        </div>
+    </div>
+
+    <h2>Clause-by-Clause Translation & Audit Logs</h2>
+    
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_001</span>
+                        <span class="clause-type">[DOCUMENT HEADER]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">MASTER SERVICES AGREEMENT</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">MASTER SERVICES करार</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">MASTER SERVICES Agreement</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 55.03</span>
+                    <span><b>chrF:</b> 60.7</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_002</span>
+                        <span class="clause-type">[DOCUMENT HEADER]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">This Master Services Agreement ("Agreement") is made and entered into on this 15th day of November, 2023, by and between:</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">यह मास्टर सेवा करार (\"करार\") इस 15th day of November, 2023 को निम्नलिखित पक्षकारों के मध्य निष्पादित और प्रविष्ट किया गया है:</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">यह मास्टर सेवा Agreement (\"Agreement\") इस 15th day of November, 2023 को निम्नलिखित पक्षकारों के मध्य निष्पादित और प्रविष्ट किया गया है:</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 20.87</span>
+                    <span><b>chrF:</b> 34.29</span>
+                    <span><b>Token F1:</b> 0.2553</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_003</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-danger">NEEDS REVIEW</span>
+                        <span class="fidelity-pill">Fidelity: 92.5%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">ALPHA LEGAL TECH PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Nariman Point, Mumbai - 400021 (hereinafter referred to as the "Service Provider", which expression shall include its successors and permitted assigns);</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">ALPHA LEGAL TECH PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Nariman Point, Mumbai - 400021 (hereinafter referred to as the "Service Provider", which expression करेगा include its successors and permitted assigns);</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">ALPHA LEGAL TECH PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Nariman Point, Mumbai - 400021 (hereinafter referred to as the "Service Provider", which expression shall include its successors and permitted assigns);</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 82%</span>
+                </div>
+
+                
+                <div class='flag-box'><ul><li>Low translation confidence (82%) - human legal verification recommended.</li><li><b>[terminology_fidelity]</b> Term drift: 'Companies Act' was not translated to expected statutory term 'कंपनी अधिनियम'</li></ul></div>
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_004</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">AND</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">AND</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">AND</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_005</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-danger">NEEDS REVIEW</span>
+                        <span class="fidelity-pill">Fidelity: 92.5%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">BHARAT COMMERCIAL ENTERPRISES LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Connaught Place, New Delhi - 110001 (hereinafter referred to as the "Client", which expression shall include its successors and permitted assigns).</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">BHARAT COMMERCIAL ENTERPRISES LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Connaught Place, New Delhi - 110001 (hereinafter referred to as the "Client", which expression करेगा include its successors and permitted assigns).</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">BHARAT COMMERCIAL ENTERPRISES LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Connaught Place, New Delhi - 110001 (hereinafter referred to as the "Client", which expression shall include its successors and permitted assigns).</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 82%</span>
+                </div>
+
+                
+                <div class='flag-box'><ul><li>Low translation confidence (82%) - human legal verification recommended.</li><li><b>[terminology_fidelity]</b> Term drift: 'Companies Act' was not translated to expected statutory term 'कंपनी अधिनियम'</li></ul></div>
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_006</span>
+                        <span class="clause-type">[RECITAL]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">WHEREAS: A. The Service Provider is engaged in the business of providing enterprise software and legal analytics solutions. B. The Client desires to retain the Service Provider, and the Service Provider agrees to render such services on the terms and conditions set forth herein.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">चूंकि: A. The Service Provider is engaged in the business of providing enterprise software and legal analytics solutions. B. The Client desires to retain the Service Provider, and the Service Provider agrees to render such services on the terms and conditions set forth herein.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">Whereas: A. The Service Provider is engaged in the business of providing enterprise software and legal analytics solutions. B. The Client desires to retain the Service Provider, and the Service Provider agrees to render such services on the terms and conditions set forth herein.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 97.94</span>
+                    <span><b>chrF:</b> 97.07</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_007</span>
+                        <span class="clause-type">[TRANSITION RECITAL]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">NOW, THEREFORE, the Parties agree as follows:</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">अतएव अब, पक्षकार निम्नलिखित रूप से परस्पर सहमत होते हैं:</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">NOW, THEREFORE, the Parties agree as follows:</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_008</span>
+                        <span class="clause-type">[DEFINITIONS]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">1. DEFINITIONS AND INTERPRETATION</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">1. DEFINITIONS AND INTERPRETATION</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">1. DEFINITIONS AND INTERPRETATION</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_009</span>
+                        <span class="clause-type">[JUDICIAL HEADING]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">1.1 "Applicable Law" shall mean any statute, law, regulation, ordinance, rule, judgment, order, decree, or directive having the force of law in the Republic of India.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">1.1 "Applicable Law" करेगा mean any statute, law, regulation, ordinance, rule, judgment, order, डिक्री, or directive having the force of law in the Republic of India.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">1.1 "Applicable Law" shall mean any statute, law, regulation, ordinance, rule, judgment, order, Decree, or directive having the force of law in the Republic of India.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 92.79</span>
+                    <span><b>chrF:</b> 97.46</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_010</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">1.2 "Confidential Information" shall mean all proprietary information disclosed by one Party to the other Party, whether orally or in writing.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">1.2 "Confidential Information" करेगा mean all proprietary information disclosed by one Party to the other Party, whether orally or in writing.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">1.2 "Confidential Information" shall mean all proprietary information disclosed by one Party to the other Party, whether orally or in writing.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_011</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">2. OBLIGATIONS OF THE SERVICE PROVIDER</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">2. OBLIGATIONS OF THE SERVICE PROVIDER</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">2. OBLIGATIONS OF THE SERVICE PROVIDER</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_012</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">2.1 The Service Provider shall perform the Services with reasonable skill, care, and diligence in accordance with the specifications set forth in Schedule A.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">2.1 The Service Provider करेगा perform the Services with reasonable skill, care, and diligence in accordance with the specifications set forth in Schedule A.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">2.1 The Service Provider shall perform the Services with reasonable skill, care, and diligence in accordance with the specifications set forth in Schedule A.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-critical">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_013</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-critical">RISK: CRITICAL</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">2.2 The Service Provider shall not assign or sub-contract any of its obligations without the prior written consent of the Client.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">2.2 The Service Provider नहीं करेगा assign or sub-संविदा any of its obligations without the prior written consent of the Client.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">2.2 The Service Provider shall not assign or sub-Contract any of its obligations without the prior written consent of the Client.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 87.25</span>
+                    <span><b>chrF:</b> 96.69</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_014</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">3. FEES AND PAYMENT TERMS</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">3. FEES AND PAYMENT TERMS</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">3. FEES AND PAYMENT TERMS</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_015</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">3.1 The Client shall pay the Service Provider a total consideration of INR 15,00,000/- (Indian Rupees Fifteen Lakhs only) plus applicable Goods and Services Tax (GST) within thirty (30) days from the date of receipt of an undisputed invoice.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">3.1 The Client करेगा pay the Service Provider a total प्रतिफल of ₹15,00,000/- (Indian Rupees Fifteen Lakhs only) plus applicable Goods and Services Tax (GST) within thirty (30) days from the date of receipt of an undisputed invoice.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">3.1 The Client shall pay the Service Provider a total Consideration of INR 15,00,000/- (Indian Rupees Fifteen Lakhs only) plus applicable Goods and Services Tax (GST) within thirty (30) days from the date of receipt of an undisputed invoice.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 94.53</span>
+                    <span><b>chrF:</b> 98.25</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_016</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">3.2 Any delayed payment shall attract interest at the rate of 9% per annum from the due date until the date of actual payment.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">3.2 Any delayed payment करेगा attract interest at the rate of 9% per annum from the due date until the date of actual payment.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">3.2 Any delayed payment shall attract interest at the rate of 9% per annum from the due date until the date of actual payment.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_017</span>
+                        <span class="clause-type">[INDEMNITY]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">4. INDEMNIFICATION AND LIABILITY</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">4. INDEMNIFICATION AND LIABILITY</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">4. INDEMNIFICATION AND LIABILITY</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_018</span>
+                        <span class="clause-type">[INDEMNITY]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">4.1 The Service Provider shall indemnify, defend, and hold harmless the Client, its directors, officers, and employees against any third-party claims, liabilities, losses, damages, and expenses arising directly out of any willful misconduct or breach of confidentiality by the Service Provider.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">4.1 The Service Provider करेगा indemnify, defend, and hold harmless the Client, its directo₹, office₹, and employees against any third-party claims, liabilities, losses, damages, and expenses arising directly out of any willful misconduct or breach of गोपनीयता by the Service Provider. (rs,)</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">4.1 The Service Provider shall indemnify, defend, and hold harmless the Client, its directoINR , officeINR , and employees against any third-party claims, liabilities, losses, damages, and expenses arising directly out of any willful misconduct or breach of Confidentiality by the Service Provider. (rs,)</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 79.63</span>
+                    <span><b>chrF:</b> 94.82</span>
+                    <span><b>Token F1:</b> 0.9296</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                <div class='repairs-box'><small><b>Agentic AI Repairs:</b></small><ul><li><span class='action-pill'>RESTORE_ENTITY</span> Restored critical entity 'rs,' into translation</li></ul></div>
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_019</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-danger">NEEDS REVIEW</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">4.2 In no event shall the total aggregate liability of either Party under this Agreement exceed INR 30,00,000/- (Indian Rupees Thirty Lakhs only).</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">4.2 In no event नहीं करेगा the total aggregate liability of either Party under this करार exceed ₹30,00,000/- (Indian Rupees Thirty Lakhs only).</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">4.2 In no event shall not the total aggregate liability of either Party under this Agreement exceed INR 30,00,000/- (Indian Rupees Thirty Lakhs only).</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 90.62</span>
+                    <span><b>chrF:</b> 97.44</span>
+                    <span><b>Token F1:</b> 0.9811</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 85%</span>
+                </div>
+
+                <div class='repairs-box'><small><b>Agentic AI Repairs:</b></small><ul><li><span class='action-pill'>FLAG_CRITICAL_LEGAL_RISK</span> CRITICAL: English source contains strict legal negation/prohibition, but no negation was detected in Hindi translation!</li></ul></div>
+                <div class='flag-box'><ul><li>CRITICAL: English source contains strict legal negation/prohibition, but no negation was detected in Hindi translation!</li></ul></div>
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_020</span>
+                        <span class="clause-type">[TERMINATION]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">5. TERMINATION</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">5. समाप्ति</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">5. Termination</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 55.03</span>
+                    <span><b>chrF:</b> 8.14</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_021</span>
+                        <span class="clause-type">[TERMINATION]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-danger">NEEDS REVIEW</span>
+                        <span class="fidelity-pill">Fidelity: 75.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">5.1 Either Party may terminate this Agreement forthwith by giving written notice of thirty (30) days in the event of a material breach by the other Party which remains uncured for fifteen (15) days after receipt of notice.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">5.1 Either Party कर सकता है terminate this करार तत्काल by giving written सूचना of thirty (30) days in the event of a material breach by the other Party which remains uncured for fifteen (15) days after receipt of सूचना.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">5.1 Either Party may terminate this Agreement forthwith by giving written Notice of thirty (30) days in the event of a material breach by the other Party which remains uncured for fifteen (15) days after receipt of Notice.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 89.58</span>
+                    <span><b>chrF:</b> 96.15</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                <div class='flag-box'><ul><li><b>[negation_fidelity]</b> CRITICAL: Negation or prohibition present in English source was lost in translation!</li></ul></div>
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_022</span>
+                        <span class="clause-type">[TERMINATION]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">5.2 Upon termination, the Client shall forthwith pay all outstanding fees accrued up to the effective date of termination.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">5.2 Upon समाप्ति, the Client करेगा तत्काल pay all outstanding fees accrued up to the effective date of समाप्ति.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">5.2 Upon Termination, the Client shall forthwith pay all outstanding fees accrued up to the effective date of Termination.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 78.78</span>
+                    <span><b>chrF:</b> 93.04</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-standard">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_023</span>
+                        <span class="clause-type">[DISPUTE RESOLUTION]</span>
+                        <span class="risk-badge risk-standard">RISK: STANDARD</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">6. GOVERNING LAW AND DISPUTE RESOLUTION</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">6. शासी विधि AND विवाद समाधान</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">6. Governing Law AND Dispute Resolution</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 14.54</span>
+                    <span><b>chrF:</b> 9.04</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_024</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">6.1 This Agreement shall be governed by and construed in accordance with the laws of India.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">6.1 यह करार भारत की विधियों द्वारा शासित और उनके अनुसार अर्थान्वित होगा।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">6.1 This Agreement shall be governed by and construed in accordance with the laws of India.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 100.0</span>
+                    <span><b>chrF:</b> 100.0</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_025</span>
+                        <span class="clause-type">[DISPUTE RESOLUTION]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 98.12%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">6.2 Any dispute arising out of or in connection with this Agreement shall be referred to arbitration in accordance with the Arbitration and Conciliation Act, 1996. The seat and venue of arbitration shall be New Delhi, and the proceedings shall be conducted in the English language before a Sole Arbitrator.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">6.2 इस करार से उत्पन्न या इसके संबंध में होने वाले किसी भी विवाद को the Arbitration and Conciliation Act, 1996 के अनुसार मध्यस्थता के लिए संदर्भित किया जाएगा। मध्यस्थता का स्थान और विचार-स्थल New Delhi होगा, तथा कार्यवाही एकल मध्यस्थ के समक्ष अंग्रेजी भाषा में संचालित की जाएगी।</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">6.2 इस Agreement से उत्पन्न या इसके संबंध में होने वाले किसी भी विवाद को the Arbitration and Conciliation Act, 1996 के अनुसार Arbitration के लिए संदर्भित किया जाएगा। Arbitration का स्थान और विचार-स्थल New Delhi shall be, तथा कार्यवाही Sole Arbitrator के समक्ष अंग्रेजी भाषा में संचालित की जाएगी।</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 13.96</span>
+                    <span><b>chrF:</b> 31.41</span>
+                    <span><b>Token F1:</b> 0.3571</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 95%</span>
+                </div>
+
+                
+                
+            </div>
+            
+            <div class="clause-card risk-elevated">
+                <div class="clause-header">
+                    <div>
+                        <span class="clause-id">C_026</span>
+                        <span class="clause-type">[OPERATIVE]</span>
+                        <span class="risk-badge risk-elevated">RISK: ELEVATED</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">VERIFIED</span>
+                        <span class="fidelity-pill">Fidelity: 100.0%</span>
+                    </div>
+                </div>
+
+                <div class="clause-grid">
+                    <div class="col-box">
+                        <label>English Source (Input)</label>
+                        <p class="text-source">6.3 The Courts at New Delhi shall have exclusive jurisdiction over all matters arising hereunder.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Verified Hindi Translation (Agentic Output)</label>
+                        <p class="text-hindi">6.3 The Courts at New Delhi करेगा have exclusive क्षेत्राधिकार over all matters arising hereunder.</p>
+                    </div>
+                    <div class="col-box">
+                        <label>Back-Translated English (Stage 3 Round-Trip)</label>
+                        <p class="text-back">6.3 The Courts at New Delhi shall have exclusive Jurisdiction over all matters arising hereunder.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <span><b>BLEU:</b> 81.54</span>
+                    <span><b>chrF:</b> 95.61</span>
+                    <span><b>Token F1:</b> 1.0</span>
+                    <span><b>Entity Match:</b> 100%</span>
+                    <span><b>Confidence:</b> 100%</span>
+                </div>
+
+                
+                
+            </div>
+            
+</div>
+</body>
+</html>
